@@ -4,7 +4,7 @@ public class Message {
 	Type type;
 	int x = -1;
 	int y = -1;
-	boolean Horz;
+	boolean Horz = false;
 	
 	public Message(Type type) {
 		this.type = type;
@@ -16,7 +16,7 @@ public class Message {
 		this.y = y;
 	}
 	
-	public Message(Type type, boolean HV) {
+	public Message(Type type, int x, int y, boolean HV) {
 		this.type = type;
 		this.Horz = HV;
 	}
