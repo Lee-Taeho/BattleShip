@@ -33,7 +33,7 @@ public class PlayerModel {
 		return numOfHits == 15;
 	}
 	
-	public boolean attackedByPlayer(int xPos, int yPos) {
+	public boolean attackedByAI(int xPos, int yPos) {
 		if(map[yPos][xPos] == 0) {  //hits empty space -> 0
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
