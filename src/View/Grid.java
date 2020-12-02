@@ -9,7 +9,7 @@ public class Grid implements Iterable {
     public Grid(){
 
         this(10,10, 0, 0);
-//        addMouseMotionListener(new MouseMotionListener());
+
 
     }
 

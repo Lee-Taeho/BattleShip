@@ -1,8 +1,8 @@
 package Message;
 
 public class PlaceNewShipMessage implements Message{
-	int x;
-	int y;
-	int length;
-	boolean vertical;
+	public int x;
+	public int y;
+	public int length;
+	public boolean vertical;
 }

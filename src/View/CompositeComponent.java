@@ -58,6 +58,10 @@ public class CompositeComponent extends JComponent{
         ships.add(ship);
     }
 
+    public ArrayList<Ship> getShipList(){
+        return ships;
+    }
+
     // placeShipMessage(){
     //      int row;
     //      int column;
@@ -139,6 +143,8 @@ public class CompositeComponent extends JComponent{
                         if(!playerGrid.contains(event.getPoint())){
                             ship.setPosition(ship.getInitPoint());
                             ship.setSelected(false);
+                            ship.setIndex(-1,-1);
+                            System.out.println("ship placing failed: ship is outside the grid");
                             if(ship.isVertical())
                                 ship.rotate();
                         }else {
@@ -149,11 +155,17 @@ public class CompositeComponent extends JComponent{
                                          if( ((ROWS - i) >= ship.getLength() && ship.isVertical())
                                             || ( (COLUMNS - j) >= ship.getLength()) && !ship.isVertical() ){
 
+                                             int[] index = playerGrid.indexOf(square);
+                                             ship.setIndex(index[0], index[1]);
+                                             System.out.println("ship placing SUCCEED: ["+ index[0] +"]["+index[1]+"]");
                                              ship.setPosition(square.getPosition());
                                              ship.setSelected(false);
                                         }else{
+
+                                             ship.setIndex(-1,-1);
                                              ship.setPosition(ship.getInitPoint());
                                              ship.setSelected(false);
+                                             System.out.println("ship placing failed: size doesn't fit");
                                              if(ship.isVertical())
                                                  ship.rotate();
                                          }

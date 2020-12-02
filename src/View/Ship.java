@@ -105,9 +105,18 @@ public class Ship extends SelectableShape{
         this.vertical = vertical;
     }
 
-    public int indexOf(SquareShape s){
+//    public int indexOf(SquareShape s){
+//
+//        return squares.indexOf(s);
+//    }
 
-        return squares.indexOf(s);
+    public int[] indexOf(){
+        return new int[] {xCoordinate,yCoordinate};
+    }
+
+    public void setIndex(int row, int column){
+        xCoordinate = row;
+        yCoordinate = column;
     }
 
     public SquareShape getSquare(int index){
@@ -117,6 +126,8 @@ public class Ship extends SelectableShape{
 
     private int initX;
     private int initY;
+    private int xCoordinate = -1;
+    private int yCoordinate = -1;
     private int length;
     private boolean vertical;
     private ArrayList<SquareShape> squares;

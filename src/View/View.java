@@ -1,6 +1,7 @@
 package View;
 
 import Message.NewGameMessage;
+import Message.PlaceNewShipMessage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,16 +16,7 @@ public class View {
         frame.setVisible(true);
 
 
-        JButton startButton = new JButton("Start");
-//        startButton.addActionListener( (event) ->);
-        JButton shootButton = new JButton("Shoot");
 
-        JTextField textField = new JTextField("Initial text field");
-
-
-        JPanel buttons = new JPanel();
-        buttons.add(startButton);
-        buttons.add(shootButton);
 
 
         CompositeComponent temp = new CompositeComponent();
@@ -36,6 +28,29 @@ public class View {
         temp.addShip(new Ship(2,4 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
         temp.addShip(new Ship(2,7 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
         temp.addShip(new Ship(2,8 * SquareShape.getWidth(),12 * SquareShape.getWidth() - 25));
+
+        JButton finished_placing_button = new JButton("Finished placing");
+        finished_placing_button.addActionListener( (event) -> {
+            for(Ship ship: temp.getShipList()){
+                int[] coordinate = ship.indexOf();
+                PlaceNewShipMessage message = new PlaceNewShipMessage();
+                message.x = coordinate[0];
+                message.y = coordinate[1];
+                message.length = ship.getLength();
+                message.vertical = ship.isVertical();
+                // Add the message into the queue such as queue.put(message);
+            }
+        }
+
+        );
+        JButton shootButton = new JButton("Shoot");
+
+        JTextField textField = new JTextField("Initial text field");
+
+
+        JPanel buttons = new JPanel();
+        buttons.add(finished_placing_button);
+        buttons.add(shootButton);
 
 
         frame.add(buttons,BorderLayout.NORTH);
