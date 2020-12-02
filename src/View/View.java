@@ -43,6 +43,7 @@ public class View {
         frame.add(textField, BorderLayout.SOUTH);
         frame.setSize(1200, 1000);
 
+        System.out.println("Checking if the commit is working");
 
 
     }
