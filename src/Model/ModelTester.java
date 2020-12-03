@@ -5,13 +5,13 @@ public class ModelTester {
 	public static void main(String argv[]) {
 		Scanner s = new Scanner (System.in);
 		
-	//=============== player class constructor will set all ships ========================
+	//=============== player class constructor will set all ShipModels ========================
 		PlayerModel p1 = new PlayerModel();
-		Ship s1 = new Ship(1,3,2,true);
-		Ship s2 = new Ship(4,0,3,true);
-		Ship s3 = new Ship(5,6,3,false);
-		Ship s4 = new Ship(7,1,4,true);
-		Ship s5 = new Ship(3,8,5,false);
+		ShipModel s1 = new ShipModel(1,3,2,true);
+		ShipModel s2 = new ShipModel(4,0,3,true);
+		ShipModel s3 = new ShipModel(5,6,3,false);
+		ShipModel s4 = new ShipModel(7,1,4,true);
+		ShipModel s5 = new ShipModel(3,8,5,false);
 		p1.setShip(s1);
 		p1.setShip(s2);
 		p1.setShip(s3);

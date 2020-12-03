@@ -46,18 +46,18 @@ public class CompositeComponent extends JComponent{
         Graphics2D g2 = (Graphics2D) g;
         AIGrid.draw(g2);
         playerGrid.draw(g2);
-        for(Ship s: ships){
+        for(ShipView s: ships){
             s.draw(g2);
         }
 
     }
 
-    public void addShip(Ship ship){
+    public void addShip(ShipView ship){
 
         ships.add(ship);
     }
 
-    public ArrayList<Ship> getShipList(){
+    public ArrayList<ShipView> getShipList(){
         return ships;
     }
 
@@ -146,7 +146,7 @@ public class CompositeComponent extends JComponent{
 
             mousePoint = event.getPoint();
 
-            for (Ship s: ships){
+            for (ShipView s: ships){
                 if(s.contains(event.getPoint())){
                     if(event.getButton() == 1){
                         s.setSelected(true);
@@ -169,7 +169,7 @@ public class CompositeComponent extends JComponent{
         public void mouseReleased(MouseEvent event){
             if(event.getButton() == 1){
                 Point p = event.getPoint();
-                for(Ship ship : ships){
+                for(ShipView ship : ships){
                     if(ship.isSelected()){
                         if(!playerGrid.contains(event.getPoint())){
                             ship.resetPosition();
@@ -220,7 +220,7 @@ public class CompositeComponent extends JComponent{
         public void mouseDragged(MouseEvent event){
             Point lastMousePoint = mousePoint;
             mousePoint = event.getPoint();
-            for(Ship s : ships){
+            for(ShipView s : ships){
                 if (s.isSelected())
                 {
                     double dx = mousePoint.getX() - lastMousePoint.getX();
@@ -285,7 +285,7 @@ public class CompositeComponent extends JComponent{
     private Point mousePoint;
     private Grid playerGrid;
     private Grid AIGrid;
-    private ArrayList<Ship> ships;
+    private ArrayList<ShipView> ships;
     private int ROWS = 10;
     private int COLUMNS = 10;
 
