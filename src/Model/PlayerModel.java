@@ -6,9 +6,9 @@ public class PlayerModel {
 	private int map[][];
 	int numOfShots;
 	int numOfHits;
-	int numOfShips;
+	public int numOfShips;
 	Random rand = new Random();
-
+	
 	public PlayerModel() {
 		numOfShots = 0;
 		numOfHits = 0;
@@ -17,12 +17,12 @@ public class PlayerModel {
 		map = new int [MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
-				map[x][y] = 0;
+				 map[x][y] = 0;
 			}
 		}
 	}
-
-	//display method
+	
+	//display method only for testing
 	public void display() {
 		int colNum = 1;
 		System.out.print("     ");
@@ -41,7 +41,7 @@ public class PlayerModel {
 				System.out.print(x + 1 + "   ");
 			for(int y = 0; y < MAP_SIZE; y++) {
 				//only for testing
-
+				
 				if(map[x][y] == 0) {
 					System.out.print(".   "); //empty space
 				}else if(map[x][y] == 1) {
@@ -61,9 +61,9 @@ public class PlayerModel {
 		System.out.println();
 		System.out.println();
 	}
-
+	
 	//For now we use this version of setShip only for testing
-	public void setShip (Ship s) {
+	public void setShip (ShipModel s) {
 		int[] xPos = s.getXPos();
 		int[] yPos = s.getYPos();
 		for(int i = 0; i < s.getLength(); i++) {
@@ -71,11 +71,11 @@ public class PlayerModel {
 		}
 		numOfShips++;
 	}
-
+	
 	public boolean isGameOver() {
 		return numOfHits == 17;
 	}
-
+	
 	public boolean attackedByAI() {
 		int xPos = rand.nextInt(10);
 		int yPos = rand.nextInt(10);
@@ -83,14 +83,26 @@ public class PlayerModel {
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
 			return false;
-
+			
 		}else if(map[yPos][xPos] == 1) {     //hits Ship part -> 1
 			map[yPos][xPos] = 2; //change it to Ship was Hit -> 2
 			numOfShots++;
 			numOfHits++;
 			return true;
-
+			
 		}else
 			return false;
+	}
+	
+	public void reset() {
+		numOfShots = 0;
+		numOfHits = 0;
+		numOfShips = 0;
+		map = new int [MAP_SIZE][MAP_SIZE];
+		for (int x = 0; x < MAP_SIZE; x++) {
+			for (int y = 0; y < MAP_SIZE; y++) {
+				 map[x][y] = 0;
+			}
+		}
 	}
 }
