@@ -1,6 +1,6 @@
 package Message;
 
-public class FireMissileMessage {
+public class FireMissileMessage implements Message{
 	int x;
 	int y;
 	boolean atPlayer;

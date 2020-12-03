@@ -1,5 +1,5 @@
 package Message;
 
-public class UpdateStringMessage {
+public class UpdateStringMessage implements Message {
 	String text;
 }

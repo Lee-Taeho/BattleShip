@@ -1,5 +1,5 @@
 package Message;
 
-public class NewGameMessage {
+public class NewGameMessage implements Message{
 	
 }

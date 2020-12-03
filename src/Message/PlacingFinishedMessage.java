@@ -1,5 +1,5 @@
 package Message;
 
-public class PlacingFinishedMessage {
+public class PlacingFinishedMessage implements Message {
 
 }
