@@ -70,6 +70,15 @@ public class Ship extends SelectableShape{
         setPosition((int) p.getX(),(int) p.getY());
     }
 
+    public void resetPosition(){
+        xCoordinate = -1;
+        yCoordinate = -1;
+        setPosition(getInitPoint());
+        setSelected(false);
+        if(vertical)
+            rotate();
+    }
+
     public Point getInitPoint(){
 
         return new Point(initX, initY);

@@ -141,12 +141,8 @@ public class CompositeComponent extends JComponent{
                 for(Ship ship : ships){
                     if(ship.isSelected()){
                         if(!playerGrid.contains(event.getPoint())){
-                            ship.setPosition(ship.getInitPoint());
-                            ship.setSelected(false);
-                            ship.setIndex(-1,-1);
+                            ship.resetPosition();
                             System.out.println("ship placing failed: ship is outside the grid");
-                            if(ship.isVertical())
-                                ship.rotate();
                         }else {
                             for (int i = 0; i < ROWS; i++){
                                 for (int j = 0; j < COLUMNS; j++){
@@ -155,19 +151,15 @@ public class CompositeComponent extends JComponent{
                                          if( ((ROWS - i) >= ship.getLength() && ship.isVertical())
                                             || ( (COLUMNS - j) >= ship.getLength()) && !ship.isVertical() ){
 
-                                             int[] index = playerGrid.indexOf(square);
-                                             ship.setIndex(index[0], index[1]);
-                                             System.out.println("ship placing SUCCEED: ["+ index[0] +"]["+index[1]+"]");
-                                             ship.setPosition(square.getPosition());
-                                             ship.setSelected(false);
-                                        }else{
+                                                 int[] index = playerGrid.indexOf(square);
+                                                 ship.setIndex(index[0], index[1]);
+                                                 ship.setPosition(square.getPosition());
+                                                 ship.setSelected(false);
+                                                 System.out.println("ship placing SUCCEED: ["+ index[0] +"]["+index[1]+"]");
 
-                                             ship.setIndex(-1,-1);
-                                             ship.setPosition(ship.getInitPoint());
-                                             ship.setSelected(false);
+                                        }else{
+                                             ship.resetPosition();
                                              System.out.println("ship placing failed: size doesn't fit");
-                                             if(ship.isVertical())
-                                                 ship.rotate();
                                          }
                                 }
                             }
@@ -211,6 +203,50 @@ public class CompositeComponent extends JComponent{
             repaint();
         }
     }
+
+// <Failed method. Does not work>
+//    private boolean overlaps(int x, int y, int length, boolean vertical){
+//        int[] coordinates;
+//        int len;
+//        for(Ship ship : ships){
+//            coordinates = ship.indexOf();
+//            len = ship.getLength() -1 ;
+//
+//            if(coordinates[0] != -1 && coordinates[1] != -1){
+//                if(ship.isVertical()){
+//                    if(vertical){
+//                        for (int i = 0; i < length; i++){
+//                            if(x == coordinates[0] && coordinates[1] <= (y + i) && (y + i) <= (coordinates[1] + len) ){
+//                                return true;
+//                            }
+//                        }
+//                    }else{
+//                        for (int i = 0; i < length; i++){
+//                            if((x + i) == coordinates[0] && coordinates[1] <= y && y <= (coordinates[1] + len) ){
+//                                return true;
+//                            }
+//                        }
+//                    }
+//
+//                }else{
+//                    if(vertical){
+//                        for (int i = 0; i < length; i++){
+//                            if((y + i) == coordinates[1] && coordinates[0] <= x && x <= (coordinates[0] + len) ){
+//                                return true;
+//                            }
+//                        }
+//                    }else{
+//                        for (int i = 0; i < length; i++){
+//                            if( y  == coordinates[1] && coordinates[0] <= (x + i) && (x + i) <= (coordinates[0] + len) ){
+//                                return true;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
 
 
