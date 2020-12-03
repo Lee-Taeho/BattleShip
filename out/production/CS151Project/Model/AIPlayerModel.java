@@ -57,8 +57,8 @@ public class AIPlayerModel {
 					success = true;							//if ship does not go beyond the board and no ships in chosen spot, then select spot
 				}
 
-				for(int i = 0; i < s.getSize(); i++) {					//Place ship once done checking
-					map[yPos][xPos] = s.getGridDisplay();
+				for(int i = 0; i < s.getLength(); i++) {				//place ship once done checking
+					map[yPos[i]][xPos[i]] = s.getGridDisplay();
 				}
 				numOfShips++;								//once ship has been placed, add to total number of ships on map
 			}
