@@ -21,14 +21,50 @@ public class AIPlayerModel {
 	
 	//For now we use this version of setShip only for testing
 	public void setShip (Ship s) {
-		int[] xPos = s.getxPos();
-		int[] yPos = s.getyPos();
-		for(int i = 0; i < s.getLength(); i++) {
-			map[yPos[i]][xPos[i]] = s.getGridDisplay();
+		boolean success = false;								//used to check for obstruction to selected position
+		
+		while(numOfShips != 5){									//stop when 5 ships have been placed on map
+			while(!success) {
+				int[] xPos = rand.nextInt(10)        	  			        //set to random position
+				int[] yPos = rand.nextInt(10)
+				boolean vertical = rand.nextBoolean();			 		//horizontal or vertical
+
+				if (vertical) {
+					if (((yPos - 1) + s.getSize()) > 10) { 			        //if vertical and if ship extends past the board
+						success = false;					//retry
+					}
+					else{								//if ship does not go beyond the board
+						for(int i = yPos; i < ((yPos - 1) + s.getSize()); i++){	//from selected yPos to end of Ship size
+							if(map[i][xPos] != 0){				//check if there are any ships placed on path
+								success = false;			//retry if not empty
+							}
+						}
+					}
+				}
+				else if(!vertical){
+					if ((xPos - 1) + s.getSize() > 10) {	  			//if horizontal and if ship extends past the board
+						success = false;					//retry
+					}
+					else{								//if ship does not go beyond the board
+						for(int i = xPos; i < ((xPos - 1) + s.getSize()); i++){	//from selected xPos to end of Ship size
+							if(map[yPos][i] != 0){				//check if there are any ships placed on path
+								success = false;			//retry if not empty
+							}
+						}
+					}
+				}
+				else{
+					success = true;							//if ship does not go beyond the board and no ships in chosen spot, then select spot
+				}
+
+				for(int i = 0; i < s.getSize(); i++) {					//Place ship once done checking
+					map[yPos][xPos] = s.getGridDisplay();
+				}
+				numOfShips++;								//once ship has been placed, add to total number of ships on map
+			}
 		}
-		numOfShips++;
 	}
-	
+		
 	public boolean isGameOver() {
 		return numOfHits == 15;
 	}
