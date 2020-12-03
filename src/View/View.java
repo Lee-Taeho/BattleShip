@@ -20,18 +20,18 @@ public class View {
 
 
         CompositeComponent temp = new CompositeComponent();
-        temp.addShip(new Ship(5,0,10 * SquareShape.getWidth()));
-        temp.addShip(new Ship(4,6* SquareShape.getWidth(), 10 *SquareShape.getWidth()));
-        temp.addShip(new Ship(3,0,12 * SquareShape.getWidth() - 25));
-        temp.addShip(new Ship(3,4 * SquareShape.getWidth(),12 * SquareShape.getWidth()- 25));
-        temp.addShip(new Ship(3,0,14 * SquareShape.getWidth() - 50));
-        temp.addShip(new Ship(2,4 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
-        temp.addShip(new Ship(2,7 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
-        temp.addShip(new Ship(2,8 * SquareShape.getWidth(),12 * SquareShape.getWidth() - 25));
+        temp.addShip(new ShipView(5,0,10 * SquareShape.getWidth()));
+        temp.addShip(new ShipView(4,6* SquareShape.getWidth(), 10 *SquareShape.getWidth()));
+        temp.addShip(new ShipView(3,0,12 * SquareShape.getWidth() - 25));
+        temp.addShip(new ShipView(3,4 * SquareShape.getWidth(),12 * SquareShape.getWidth()- 25));
+        temp.addShip(new ShipView(3,0,14 * SquareShape.getWidth() - 50));
+        temp.addShip(new ShipView(2,4 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
+        temp.addShip(new ShipView(2,7 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
+        temp.addShip(new ShipView(2,8 * SquareShape.getWidth(),12 * SquareShape.getWidth() - 25));
 
         JButton finished_placing_button = new JButton("Finished placing");
         finished_placing_button.addActionListener( (event) -> {
-            for(Ship ship: temp.getShipList()){
+            for(ShipView ship: temp.getShipList()){
                 int[] coordinate = ship.indexOf();
                 PlaceNewShipMessage message = new PlaceNewShipMessage();
                 message.x = coordinate[0];
