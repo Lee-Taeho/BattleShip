@@ -1,4 +1,4 @@
-package Model;
+package ModelTesting;
 
 public class Ship {
 	private int xPos[];

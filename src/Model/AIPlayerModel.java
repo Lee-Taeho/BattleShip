@@ -1,4 +1,6 @@
+
 package Model;
+
 import java.util.Random;
 
 public class AIPlayerModel {
@@ -7,6 +9,8 @@ public class AIPlayerModel {
 	int numOfShots;
 	int numOfHits;
 	int numOfShips;
+
+
 
 	public AIPlayerModel() {
 		numOfShots = 0;
@@ -20,6 +24,7 @@ public class AIPlayerModel {
 			}
 		}
 	}
+
 
 	//display method
 	public void display() {
@@ -171,6 +176,7 @@ public class AIPlayerModel {
 			}
 		}
 
+
 	}
 
 	public boolean isGameOver() {
@@ -182,7 +188,6 @@ public class AIPlayerModel {
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
 			return false;
-
 		}else if(map[yPos][xPos] == 1) {     //hits Ship part -> 1
 			map[yPos][xPos] = 2; //change it to Ship was Hit -> 2
 			numOfShots++;

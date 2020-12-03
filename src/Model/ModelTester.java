@@ -1,4 +1,5 @@
 package Model;
+
 import java.util.Scanner;
 
 public class ModelTester {
@@ -6,6 +7,7 @@ public class ModelTester {
 		Scanner s = new Scanner (System.in);
 
 		//=============== player class constructor will set all ships ========================
+
 		PlayerModel p1 = new PlayerModel();
 		Ship s1 = new Ship(1,3,2,true);
 		Ship s2 = new Ship(4,0,3,true);
