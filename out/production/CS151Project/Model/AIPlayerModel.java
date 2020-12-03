@@ -1,5 +1,3 @@
-package ModelTesting;
-import java.util.Random;
 
 public class AIPlayerModel {
 	private final int MAP_SIZE;
@@ -21,160 +19,60 @@ public class AIPlayerModel {
 		}
 	}
 	
-	//display method
-	public void display() {
-		int colNum = 1;
-		System.out.print("     ");
-		for(;colNum <= MAP_SIZE; colNum++) {
-			if(colNum < 10) {
-				System.out.print(colNum + "   ");
-			}else
-				System.out.print(colNum + "  ");
-		}
-		System.out.println();
-		System.out.println();
-		for(int x = 0; x < MAP_SIZE; x++) {
-			if(x < 9) {
-				System.out.print(x + 1 + "    ");
-			}else
-				System.out.print(x + 1 + "   ");
-			for(int y = 0; y < MAP_SIZE; y++) {
-				//only for testing
-				
-				if(map[x][y] == 0) {
-					System.out.print(".   "); //empty space
-				}else if(map[x][y] == 1) {
-					System.out.print("S   "); //ship part that has not been hit
-				}else if(map[x][y] == 2) {
-					System.out.print("X   "); //ship part that has been hit
-				}else if(map[x][y] == -1) {
-					System.out.print("O   "); //missed shot
-				}
-
-			}
-			System.out.println();
-			System.out.println();
-		}
-		System.out.println("numOfShots: " + numOfShots + ", " + "numOfHits: " + numOfHits + ", " + "numOfShips: " + numOfShips);
-		System.out.println();
-		System.out.println();
-		System.out.println();
-	}
-	
 	//For now we use this version of setShip only for testing
-	public void setShip () {
-		Ship s1 = new Ship(2);
-		Ship s2 = new Ship(3);
-		Ship s3 = new Ship(3);
-		Ship s4 = new Ship(4);
-		Ship s5 = new Ship(5);
-		
-		Random rand = new Random();
-		int x;
-		int y;
+	public void setShip (Ship s) {
+		boolean success = false;									//used to check for obstruction to selected position
 		boolean vertical;
 		
-		//set Ship s1
-		boolean checkOverlap1 = false;
-		do {
-			x = rand.nextInt(10);
-			y = rand.nextInt(10);
-			vertical = rand.nextBoolean();
-			
-			while(!checkOverlap1) {
-				if(map[y][x] == 1) {
-					checkOverlap1 = false;
-				}else {
-					if(vertical) {
-						y++;
-					}else {
-						x++;
+		while(numOfShips != 5){										//stop when 5 ships have been placed on map
+			while(!success) {
+				int[] xPos = rand.nextInt(10)        	  			     	   	//set to random position
+				int[] yPos = rand.nextInt(10)
+				boolean vertical = rand.nextBoolean();				 		//horizontal or vertical
+
+				if (vertical) {
+					if (((yPos - 1) + s.getLength()) > 10) { 		 		//if vertical and if ship extends past the board
+						success = false;						//retry
 					}
-					
+					else{									//if ship does not go beyond the board
+						for(int i = yPos; i < ((yPos - 1) + s.getLength()); i++){	//from selected yPos to end of Ship size
+							if(map[i][xPos] != 0){					//check if there are any ships placed on path
+								success = false;				//retry if not empty
+							}
+						}
+					}
 				}
-			}
-			
-			int[] xPos1 = new int[s1.getLength()];
-			int[] yPos1 = new int[s1.getLength()];
-			for(int i = 0; i < s1.getLength(); i++) {
-				xPos1[i] = x;
-				yPos1[i] = y;
-				if(vertical) {
-					y++;
-				}else {
-					x++;
+				else if(!vertical){
+					if ((xPos - 1) + s.getLength() > 10) {	  				//if horizontal and if ship extends past the board
+						success = false;						//retry
+					}
+					else{									//if ship does not go beyond the board
+						for(int i = xPos; i < ((xPos - 1) + s.getLength()); i++){	//from selected xPos to end of Ship size
+							if(map[yPos][i] != 0){					//check if there are any ships placed on path
+								success = false;				//retry if not empty
+							}
+						}
+					}
 				}
-			}
-		}while(!checkOverlap1);
-		
-		//set Ship s2
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos2 = new int[s2.getLength()];
-		int[] yPos2 = new int[s2.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s2.getLength(); i++) {
-			xPos2[i] = x;
-			yPos2[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
+				else{
+					success = true;								//if ship does not go beyond the board and no ships in chosen spot, then select spot
+				}
+
+				for(int i = 0; i < s.getLength(); i++) {					//place ship once done checking
+					if(vertical){								//if orientation is vertical
+						map[i][xPos] = s.getGridDisplay();				//place ship vertically tarting from chosen spot
+					}
+					if(!vertical){								//if orientation is not vertical
+						map[yPos][i] = s.getGridDisplay();				//place ship horizontally starting from chosen spot
+					}
+				}
+				numOfShips++;									//once ship has been placed, add to total number of ships on map
 			}
 		}
-		
-		//set Ship s3
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos3 = new int[s3.getLength()];
-		int[] yPos3 = new int[s3.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s3.getLength(); i++) {
-			xPos3[i] = x;
-			yPos3[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
-		
-		//set Ship s4
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos4 = new int[s4.getLength()];
-		int[] yPos4 = new int[s4.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s4.getLength(); i++) {
-			xPos4[i] = x;
-			yPos4[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
-		
-		//set Ship s5
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos5 = new int[s5.getLength()];
-		int[] yPos5 = new int[s5.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s1.getLength(); i++) {
-			xPos5[i] = x;
-			yPos5[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
-		
 	}
-	
+		
 	public boolean isGameOver() {
-		return numOfHits == 17;
+		return numOfHits == 15;
 	}
 	
 	public boolean attackedByPlayer(int xPos, int yPos) {
