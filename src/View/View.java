@@ -5,10 +5,15 @@ import Message.PlaceNewShipMessage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.BlockingQueue;
 
 public class View {
 
-    public static void main(String[] args){
+    public static View init() {
+        return new View();
+    }
+
+    private View(){
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,16 +36,16 @@ public class View {
 
         JButton finished_placing_button = new JButton("Finished placing");
         finished_placing_button.addActionListener( (event) -> {
-            for(Ship ship: temp.getShipList()){
-                int[] coordinate = ship.indexOf();
-                PlaceNewShipMessage message = new PlaceNewShipMessage();
-                message.x = coordinate[0];
-                message.y = coordinate[1];
-                message.length = ship.getLength();
-                message.vertical = ship.isVertical();
-                // Add the message into the queue such as queue.put(message);
-            }
-        }
+                    for(Ship ship: temp.getShipList()){
+                        int[] coordinate = ship.indexOf();
+                        PlaceNewShipMessage message = new PlaceNewShipMessage();
+                        message.x = coordinate[0];
+                        message.y = coordinate[1];
+                        message.length = ship.getLength();
+                        message.vertical = ship.isVertical();
+                        // Add the message into the queue such as queue.put(message);
+                    }
+                }
 
         );
         JButton shootButton = new JButton("Shoot");
@@ -63,5 +68,13 @@ public class View {
 
     }
 
+    public static void main(String[] args){
+
+        View view = View.init();
+    }
+
+    public void reset(){
+
+    }
 
 }

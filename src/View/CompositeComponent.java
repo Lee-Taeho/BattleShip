@@ -33,8 +33,7 @@ public class CompositeComponent extends JComponent{
         }
 
         ships = new ArrayList<>();
-//        ships.add(new View.Ship(5,0,0));
-//        ships.add(new View.Ship(4, View.SquareShape.getWidth(), 0));
+
 
         addMouseMotionListener(new GridMouseMotionListener());
 //        addMouseListener(new GridMouseClickListener());
@@ -66,6 +65,38 @@ public class CompositeComponent extends JComponent{
     //      int row;
     //      int column;
     // }
+
+    public void reset(){
+        gridCoordinate = new SquareShape[ROWS][COLUMNS];
+
+        playerGrid = new Grid(ROWS,COLUMNS,0,0);
+        AIGrid = new Grid(ROWS,COLUMNS,(ROWS + 2) * SquareShape.getWidth(),0);
+
+        int r = 0, c =0;
+        for(Object s: playerGrid){
+            if(r >= ROWS + 1){
+                System.out.println("GridCoordinate assignment out of bound!!!");
+            }
+            gridCoordinate[r][c++] = (SquareShape) s;
+            if (ROWS > r){
+                if (COLUMNS <= c) {
+                    r += 1;
+                    c = 0;
+                }
+            }
+
+
+        }
+
+        ships = new ArrayList<>();
+
+
+        addMouseMotionListener(new GridMouseMotionListener());
+//        addMouseListener(new GridMouseClickListener());
+        addMouseListener(new ShipMouseClickListener());
+        addMouseMotionListener(new ShipMouseMotionListener());
+
+    }
 
     private class GridMouseMotionListener extends MouseMotionAdapter {
         @Override
