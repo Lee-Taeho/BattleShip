@@ -6,8 +6,8 @@ public class AIPlayerModel {
 	private int map[][];
 	int numOfShots;
 	int numOfHits;
-	int numOfShips;
-
+	public int numOfShips;
+	
 	public AIPlayerModel() {
 		numOfShots = 0;
 		numOfHits = 0;
@@ -16,11 +16,11 @@ public class AIPlayerModel {
 		map = new int [MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
-				map[x][y] = 0;
+				 map[x][y] = 0;
 			}
 		}
 	}
-
+	
 	//display method
 	public void display() {
 		int colNum = 1;
@@ -40,7 +40,7 @@ public class AIPlayerModel {
 				System.out.print(x + 1 + "   ");
 			for(int y = 0; y < MAP_SIZE; y++) {
 				//only for testing
-
+				
 				if(map[x][y] == 0) {
 					System.out.print(".   "); //empty space
 				}else if(map[x][y] == 1) {
@@ -60,27 +60,27 @@ public class AIPlayerModel {
 		System.out.println();
 		System.out.println();
 	}
-
+	
 	//For now we use this version of setShip only for testing
 	public void setShip () {
-		Ship s1 = new Ship(2);
-		Ship s2 = new Ship(3);
-		Ship s3 = new Ship(3);
-		Ship s4 = new Ship(4);
-		Ship s5 = new Ship(5);
-
+		ShipModel s1 = new ShipModel(2);
+		ShipModel s2 = new ShipModel(3);
+		ShipModel s3 = new ShipModel(3);
+		ShipModel s4 = new ShipModel(4);
+		ShipModel s5 = new ShipModel(5);
+		
 		Random rand = new Random();
 		int x;
 		int y;
 		boolean vertical;
-
+		
 		//set Ship s1
 		boolean checkOverlap1 = false;
 		do {
 			x = rand.nextInt(10);
 			y = rand.nextInt(10);
 			vertical = rand.nextBoolean();
-
+			
 			while(!checkOverlap1) {
 				if(map[y][x] == 1) {
 					checkOverlap1 = false;
@@ -90,10 +90,10 @@ public class AIPlayerModel {
 					}else {
 						x++;
 					}
-
+					
 				}
 			}
-
+			
 			int[] xPos1 = new int[s1.getLength()];
 			int[] yPos1 = new int[s1.getLength()];
 			for(int i = 0; i < s1.getLength(); i++) {
@@ -106,7 +106,7 @@ public class AIPlayerModel {
 				}
 			}
 		}while(!checkOverlap1);
-
+		
 		//set Ship s2
 		x = rand.nextInt(10);
 		y = rand.nextInt(10);
@@ -122,7 +122,7 @@ public class AIPlayerModel {
 				x++;
 			}
 		}
-
+		
 		//set Ship s3
 		x = rand.nextInt(10);
 		y = rand.nextInt(10);
@@ -138,7 +138,7 @@ public class AIPlayerModel {
 				x++;
 			}
 		}
-
+		
 		//set Ship s4
 		x = rand.nextInt(10);
 		y = rand.nextInt(10);
@@ -154,7 +154,7 @@ public class AIPlayerModel {
 				x++;
 			}
 		}
-
+		
 		//set Ship s5
 		x = rand.nextInt(10);
 		y = rand.nextInt(10);
@@ -170,26 +170,38 @@ public class AIPlayerModel {
 				x++;
 			}
 		}
-
+		
 	}
-
+	
 	public boolean isGameOver() {
 		return numOfHits == 17;
 	}
-
+	
 	public boolean attackedByPlayer(int xPos, int yPos) {
 		if(map[yPos][xPos] == 0) {  //hits empty space -> 0
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
 			return false;
-
+			
 		}else if(map[yPos][xPos] == 1) {     //hits Ship part -> 1
 			map[yPos][xPos] = 2; //change it to Ship was Hit -> 2
 			numOfShots++;
 			numOfHits++;
 			return true;
-
+			
 		}else
 			return false;
+	}
+	
+	public void reset() {
+		numOfShots = 0;
+		numOfHits = 0;
+		numOfShips = 0;
+		map = new int [MAP_SIZE][MAP_SIZE];
+		for (int x = 0; x < MAP_SIZE; x++) {
+			for (int y = 0; y < MAP_SIZE; y++) {
+				 map[x][y] = 0;
+			}
+		}
 	}
 }
