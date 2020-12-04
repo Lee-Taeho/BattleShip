@@ -21,7 +21,7 @@ public class AIPlayerModel {
 		}
 	}
 	
-	//display method
+	//display method only for testing
 	public void display() {
 		int colNum = 1;
 		System.out.print("     ");
@@ -39,16 +39,26 @@ public class AIPlayerModel {
 			}else
 				System.out.print(x + 1 + "   ");
 			for(int y = 0; y < MAP_SIZE; y++) {
-				//only for testing
-				
 				if(map[x][y] == 0) {
 					System.out.print(".   "); //empty space
-				}else if(map[x][y] == 1) {
-					System.out.print("S   "); //ship part that has not been hit
-				}else if(map[x][y] == 2) {
-					System.out.print("X   "); //ship part that has been hit
 				}else if(map[x][y] == -1) {
-					System.out.print("O   "); //missed shot
+					System.out.print("X   "); //missed shot
+				}else if(map[x][y] == 2) {
+					System.out.print("S   "); //length-2 ship part that has not been hit
+				}else if(map[x][y] == 3) {
+					System.out.print("D   "); //length-3 ship part that has not been hit
+				}else if(map[x][y] == 4) {
+					System.out.print("C   "); //length-4 ship part that has not been hit
+				}else if(map[x][y] == 5) {
+					System.out.print("A   "); //length-5 ship part that has not been hit
+				}else if(map[x][y] == -2) {
+					System.out.print("s   "); //length-2 ship part that's been hit
+				}else if(map[x][y] == -3) {
+					System.out.print("d   "); //length-3 ship part that's been hit
+				}else if(map[x][y] == -4) {
+					System.out.print("c   "); //length-4 ship part that's been hit
+				}else if(map[x][y] == -5) {
+					System.out.print("a   "); //length-5 ship part that's been hit
 				}
 
 			}
@@ -178,19 +188,38 @@ public class AIPlayerModel {
 	}
 	
 	public boolean attackedByPlayer(int xPos, int yPos) {
-		if(map[yPos][xPos] == 0) {  //hits empty space -> 0
+		if(map[yPos][xPos] == 0) { //hits empty space -> 0
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
 			return false;
 			
-		}else if(map[yPos][xPos] == 1) {     //hits Ship part -> 1
-			map[yPos][xPos] = 2; //change it to Ship was Hit -> 2
+		}else if(map[yPos][xPos] == 2) { //hits length-2 Ship part -> 2
+			map[yPos][xPos] = -2; //change it to length-2 ship part that's been hit -> -2
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
-		}else
-			return false;
+		}else if(map[yPos][xPos] == 3) { //hits length-2 Ship part -> 3
+			map[yPos][xPos] = -3; //change it to length-2 ship part that's been hit -> -3
+			numOfShots++;
+			numOfHits++;
+			return true;
+			
+		}else if(map[yPos][xPos] == 4) { //hits length-2 Ship part -> 4
+			map[yPos][xPos] = -4; //change it to length-2 ship part that's been hit -> -4
+			numOfShots++;
+			numOfHits++;
+			return true;
+			
+		}else if(map[yPos][xPos] == 5) { //hits length-2 Ship part -> 5
+			map[yPos][xPos] = -5; //change it to length-2 ship part that's been hit -> -5
+			numOfShots++;
+			numOfHits++;
+			return true;
+			
+		}else { //all duplicated firing -> -1, -2, -3, -4, -5
+			return false; //return false
+		}
 	}
 	
 	public void reset() {
