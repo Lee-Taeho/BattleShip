@@ -11,6 +11,9 @@ public class ShipModel {
 	//Ship constructor for AIPlayerModel
 	public ShipModel(int length) {
 		this.length = length;
+		xPos = new int[length];
+		yPos = new int[length];
+		isHit = new boolean[length];
 	}
 	
 	//Ship constructor for PlayerModel
@@ -31,7 +34,6 @@ public class ShipModel {
 				x++;
 			}
 		}
-		this.length = length;
 		vertical = true;
 	}
 	

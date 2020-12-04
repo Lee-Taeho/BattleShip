@@ -93,7 +93,7 @@ public class PlayerModel {
 		int[] yPos = s.getYPos();
 		
 		if(setShipHelper(xPos, yPos, s.getLength())) {
-			//if ship part is not overlapping, we then set this  ship
+			//if ship part is not overlapping, we then set this ship
 			for(int i = 0; i < s.getLength(); i++) {
 				map[yPos[i]][xPos[i]] = s.getGridDisplay();
 				checkSetShip[yPos[i]][xPos[i]] = true;
@@ -134,6 +134,7 @@ public class PlayerModel {
 			numOfHits++;
 			if(s1.checkIfSunk()) {
 				numOfSunk++;
+				numOfShips--;
 			}
 			numOfShots++;
 			numOfHits++;
@@ -147,12 +148,14 @@ public class PlayerModel {
 				numOfHits++;                  //it is
 				if(s2.checkIfSunk()) {
 					numOfSunk++;
+					numOfShips--;
 				}
 			}else if(s3.contains(xPos, yPos)) {
 				s3.registerHit(xPos, yPos);
 				numOfHits++;
 				if(s3.checkIfSunk()) {
 					numOfSunk++;
+					numOfShips--;
 				}
 			}
 			numOfShots++;
@@ -161,12 +164,24 @@ public class PlayerModel {
 			
 		}else if(map[yPos][xPos] == 4) { //hits length-2 Ship part -> 4
 			map[yPos][xPos] = -4; //change it to length-2 ship part that's been hit -> -4
+			s4.registerHit(xPos, yPos);
+			numOfHits++;
+			if(s4.checkIfSunk()) {
+				numOfSunk++;
+				numOfShips--;
+			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 5) { //hits length-2 Ship part -> 5
 			map[yPos][xPos] = -5; //change it to length-2 ship part that's been hit -> -5
+			s5.registerHit(xPos, yPos);
+			numOfHits++;
+			if(s5.checkIfSunk()) {
+				numOfSunk++;
+				numOfShips--;
+			}
 			numOfShots++;
 			numOfHits++;
 			return true;
