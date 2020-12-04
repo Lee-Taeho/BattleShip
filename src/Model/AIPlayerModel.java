@@ -2,21 +2,25 @@ package Model;
 import java.util.Random;
 
 public class AIPlayerModel {
-	private final int MAP_SIZE;
+	private final int MAP_SIZE = 10;
 	private int map[][];
+	private boolean checkSetShip[][]; //This is a boolean map only use in setShip method
 	int numOfShots;
 	int numOfHits;
+	int numOfSunk;
 	public int numOfShips;
 	
 	public AIPlayerModel() {
 		numOfShots = 0;
 		numOfHits = 0;
 		numOfShips = 0;
-		MAP_SIZE = 10;
+		numOfSunk = 0;
 		map = new int [MAP_SIZE][MAP_SIZE];
+		checkSetShip = new boolean [MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
 				 map[x][y] = 0;
+				 checkSetShip[x][y] = false;
 			}
 		}
 	}
@@ -71,7 +75,8 @@ public class AIPlayerModel {
 		System.out.println();
 	}
 	
-	//For now we use this version of setShip only for testing
+	//This set ship method will generate all five ships' position randomly
+	//then set checkSetShip[y][x] to true
 	public void setShip () {
 		ShipModel s1 = new ShipModel(2);
 		ShipModel s2 = new ShipModel(3);
@@ -80,111 +85,11 @@ public class AIPlayerModel {
 		ShipModel s5 = new ShipModel(5);
 		
 		Random rand = new Random();
-		int x;
-		int y;
-		boolean vertical;
-		
-		//set Ship s1
-		boolean checkOverlap1 = false;
-		do {
-			x = rand.nextInt(10);
-			y = rand.nextInt(10);
-			vertical = rand.nextBoolean();
-			
-			while(!checkOverlap1) {
-				if(map[y][x] == 1) {
-					checkOverlap1 = false;
-				}else {
-					if(vertical) {
-						y++;
-					}else {
-						x++;
-					}
-					
-				}
-			}
-			
-			int[] xPos1 = new int[s1.getLength()];
-			int[] yPos1 = new int[s1.getLength()];
-			for(int i = 0; i < s1.getLength(); i++) {
-				xPos1[i] = x;
-				yPos1[i] = y;
-				if(vertical) {
-					y++;
-				}else {
-					x++;
-				}
-			}
-		}while(!checkOverlap1);
-		
-		//set Ship s2
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos2 = new int[s2.getLength()];
-		int[] yPos2 = new int[s2.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s2.getLength(); i++) {
-			xPos2[i] = x;
-			yPos2[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
-		
-		//set Ship s3
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos3 = new int[s3.getLength()];
-		int[] yPos3 = new int[s3.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s3.getLength(); i++) {
-			xPos3[i] = x;
-			yPos3[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
-		
-		//set Ship s4
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos4 = new int[s4.getLength()];
-		int[] yPos4 = new int[s4.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s4.getLength(); i++) {
-			xPos4[i] = x;
-			yPos4[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
-		
-		//set Ship s5
-		x = rand.nextInt(10);
-		y = rand.nextInt(10);
-		int[] xPos5 = new int[s5.getLength()];
-		int[] yPos5 = new int[s5.getLength()];
-		vertical = rand.nextBoolean();
-		for(int i = 0; i < s1.getLength(); i++) {
-			xPos5[i] = x;
-			yPos5[i] = y;
-			if(vertical) {
-				y++;
-			}else {
-				x++;
-			}
-		}
 		
 	}
 	
 	public boolean isGameOver() {
-		return numOfHits == 17;
+		return numOfSunk == 5;
 	}
 	
 	public boolean attackedByPlayer(int xPos, int yPos) {
@@ -226,10 +131,12 @@ public class AIPlayerModel {
 		numOfShots = 0;
 		numOfHits = 0;
 		numOfShips = 0;
+		numOfSunk = 0;
 		map = new int [MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
 				 map[x][y] = 0;
+				 checkSetShip[x][y] = false;
 			}
 		}
 	}
