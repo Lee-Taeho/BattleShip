@@ -8,7 +8,7 @@ public class ModelTester {
 	public static void main(String argv[]) {
 		Scanner s = new Scanner (System.in);
 		
-	//=============== player class constructor will set all ships ========================
+	//=============== player sets all ships ========================
 		ShipModel s1 = new ShipModel(1,3,2,true);
 		ShipModel s2 = new ShipModel(4,0,3,true);
 		ShipModel s3 = new ShipModel(5,6,3,false);
@@ -22,9 +22,8 @@ public class ModelTester {
 		p1.setShip(s5);
 		
 			
-	//================= AIPlayer class constructor will set all ships ==========================
+	//================= AIPlayer sets all ships ==========================
 		AIPlayerModel p2 = new AIPlayerModel();
-		//p2.setShip();
 		
 	//================= This nested while loop takes control of hit & continue firing and game over ======================
 		boolean playerContinueFire;
