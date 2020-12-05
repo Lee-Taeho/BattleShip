@@ -41,7 +41,7 @@ public class PlayerModel {
 		System.out.println();
 		System.out.println();
 		for(int x = 0; x < MAP_SIZE; x++) {
-			System.out.print(x + 1 + "    ");
+			System.out.print(x + "    ");
 			for(int y = 0; y < MAP_SIZE; y++) {
 				if(map[x][y] == 0) {
 					System.out.print(".   "); //empty space
@@ -194,6 +194,61 @@ public class PlayerModel {
 				 map[x][y] = 0;
 				 checkSetShip[x][y] = false;
 				 
+			}
+		}
+	}
+	
+	//This part just updates the player grid when we remove the ship
+	public void removeShip(int x, int y, int length, boolean vertical) {
+		int[] xPos = new int[length];
+		int[] yPos = new int[length];
+		if(map[y][x] == 2) {
+			for(int i = 0; i < length; i++) {
+				xPos[i] = x;
+				yPos[i] = y;
+				map[y][x] = 0;
+				if(vertical) {
+					y++;
+				}else {
+					x++;
+				}
+					
+			}
+		}else if(map[y][x] == 3) { //does not need to call ship.contains?
+			for(int i = 0; i < length; i++) {
+				xPos[i] = x;
+				yPos[i] = y;
+				map[y][x] = 0;
+				if(vertical) {
+					y++;
+				}else {
+					x++;
+				}
+					
+			}
+		}else if(map[y][x] == 4) {
+			for(int i = 0; i < length; i++) {
+				xPos[i] = x;
+				yPos[i] = y;
+				map[y][x] = 0;
+				if(vertical) {
+					y++;
+				}else {
+					x++;
+				}
+					
+			}
+		}else if(map[y][x] == 5) {
+			for(int i = 0; i < length; i++) {
+				xPos[i] = x;
+				yPos[i] = y;
+				map[y][x] = 0;
+				if(vertical) {
+					y++;
+				}else {
+					x++;
+				}
+					
 			}
 		}
 	}

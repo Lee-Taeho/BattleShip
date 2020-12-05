@@ -90,9 +90,9 @@ public class AIPlayerModel {
 				xPos1[i] = x;
 				yPos1[i] = y;
 				if(vertical) {
-					x++;
-				}else {
 					y++;
+				}else {
+					x++;
 				}
 			}
 		}while(!setShipHelper(xPos1, yPos1, s1.getLength()));
@@ -119,9 +119,9 @@ public class AIPlayerModel {
 				xPos2[i] = x;
 				yPos2[i] = y;
 				if(vertical) {
-					x++;
-				}else {
 					y++;
+				}else {
+					x++;
 				}
 			}
 		}while(!setShipHelper(xPos2, yPos2, s2.getLength()));
@@ -149,9 +149,9 @@ public class AIPlayerModel {
 				xPos3[i] = x;
 				yPos3[i] = y;
 				if(vertical) {
-					x++;
-				}else {
 					y++;
+				}else {
+					x++;
 				}
 			}
 		}while(!setShipHelper(xPos3, yPos3, s3.getLength()));
@@ -180,9 +180,9 @@ public class AIPlayerModel {
 				xPos4[i] = x;
 				yPos4[i] = y;
 				if(vertical) {
-					x++;
-				}else {
 					y++;
+				}else {
+					x++;
 				}
 			}
 		}while(!setShipHelper(xPos4, yPos4, s4.getLength()));
@@ -211,9 +211,9 @@ public class AIPlayerModel {
 				xPos5[i] = x;
 				yPos5[i] = y;
 				if(vertical) {
-					x++;
-				}else {
 					y++;
+				}else {
+					x++;
 				}
 			}
 		}while(!setShipHelper(xPos5, yPos5, s5.getLength()));
