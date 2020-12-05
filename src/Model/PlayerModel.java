@@ -215,6 +215,7 @@ public class PlayerModel {
 				}
 					
 			}
+			numOfShips--;
 		}else if(map[y][x] == 3) { //does not need to call ship.contains?
 			for(int i = 0; i < length; i++) {
 				xPos[i] = x;
@@ -228,6 +229,7 @@ public class PlayerModel {
 				}
 					
 			}
+			numOfShips--;
 		}else if(map[y][x] == 4) {
 			for(int i = 0; i < length; i++) {
 				xPos[i] = x;
@@ -241,6 +243,7 @@ public class PlayerModel {
 				}
 					
 			}
+			numOfShips--;
 		}else if(map[y][x] == 5) {
 			for(int i = 0; i < length; i++) {
 				xPos[i] = x;
@@ -254,6 +257,7 @@ public class PlayerModel {
 				}
 					
 			}
+			numOfShips--;
 		}
 	}
 }
