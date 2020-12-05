@@ -30,11 +30,10 @@ public class Controller {
         
         this.queue = queue;
         valves.add(new DoPlaceNewShipValve());
-        valves.add(new DoRemoveShipValve());
         valves.add(new DoPlacingFinishValve());
         valves.add(new DoFireMissileValve());
-        valves.add(new DoShootMissileResultValve());
-        valves.add(new DoUpdateStringMessageValve());
+        //valves.add(new DoShootMissileResultValve());
+        //valves.add(new DoUpdateStringMessageValve());
         valves.add(new DoNewGameValve());
     }
 
@@ -52,7 +51,7 @@ public class Controller {
             for (Valve valve : valves) {
                 response = valve.execute(message);
                 // if successfully processed or game over, leave the loop
-                if (response != ValveResponse.MISS) {
+                if (response != ValveResponse.MISS || player.isGameOver() || AIPlayer.isGameOver()) {
                     break;
                 }
             }
@@ -101,36 +100,26 @@ public class Controller {
             FireMissileMessage fireMissileMessage = (FireMissileMessage) message;
             
             // actions in Model and in View
-            //if this is the turn for AI fire onto Player grid
-            if(fireMissileMessage.isAI()) {
-            	boolean AIHits = player.attackedByAI();
-            	if(AIHits) {
+            //if this is the turn for Player
+            if(fireMissileMessage.isPlayerToAI()) {
+            	boolean playerHits = AIPlayer.attackedByPlayer(fireMissileMessage.getX(), 
+            			fireMissileMessage.getY());
+            	if(playerHits) {
             		//update the string
+            		view.setTextField("Player hits AI ship in [" + fireMissileMessage.getX() + "][" 
+            		+ fireMissileMessage.getY() + "], Please continue to fire.");
             		//color the hit grid to red
-            		return ValveResponse.EXECUTED;
             	}else {
+            		view.setTextField("Player hits empty spot in [" + fireMissileMessage.getX() + "][" 
+                    		+ fireMissileMessage.getY() + "], AI's turn to fire now.");
             		//update the miss grid to black
             		//call player attack method to do its turns and consecutive firing
             		AIPlayer.attackedByPlayer(fireMissileMessage.getX(), fireMissileMessage.getY());
             		//update the grid based on the results and update strings
-            		return ValveResponse.EXECUTED;
             	}
             //if this is the turn for Player fire onto AI grid
-            }else {
-            	boolean playerHits = AIPlayer.attackedByPlayer(fireMissileMessage.getX(), fireMissileMessage.getY());
-            	if(playerHits) {
-            		//update the string
-            		//color the hit grid to red
-            		return ValveResponse.EXECUTED;
-            	}else {
-            		//update the miss grid to black
-            		//call AI attack method to do its turns and consecutive firing
-            		player.attackedByAI();
-            		//update the grid based on the results and update strings
-            		return ValveResponse.EXECUTED;
-            	}
             }
-            //return ValveResponse.EXECUTED;
+            return ValveResponse.EXECUTED;
         }
     }
     
@@ -149,31 +138,14 @@ public class Controller {
             // actions in View
             if(!player.setShip(s)){ // if the ship overlapped with previous ships
                 placeNewShipMessage.getShip().resetPosition();
-                view.setTextField("Ship overlaps with other ships, try again!");
+                view.setTextField("Failed, Ship overlaps with other ships, try again!");
+            }else {
+            	String vertical = (placeNewShipMessage.isVertical()) ? "bottom" : "right";
+            	view.setTextField("Succeed, Ship placed on [" + placeNewShipMessage.getX() 
+            	+ "][" + placeNewShipMessage.getY() + "], towards " + vertical);
             }
             
-            player.display(); //testing for the model
-
-            return ValveResponse.EXECUTED;
-        }
-    }
-
-    private class DoRemoveShipValve implements Valve{
-
-        @Override
-        public ValveResponse execute(Message message) {
-            if (message.getClass() != RemoveShipMessage.class) {
-                return ValveResponse.MISS;
-            }
-            // otherwise message is of PlaceMessage type
-            RemoveShipMessage removeShipMessage = (RemoveShipMessage) message;
-
-            // actions in Model
-            player.removeShip(removeShipMessage.getX(),removeShipMessage.getY(),removeShipMessage.getLength(),removeShipMessage.isVertical());
-            // actions in View
-
-
-            player.display(); //testing for the model
+            player.display(); //testing for the Model
 
             return ValveResponse.EXECUTED;
         }
@@ -191,57 +163,38 @@ public class Controller {
             
             // actions in Model and View
      
-            //If player have not finish placing all the ships, the system print out error message in textfield
-            //telling player to finish placing.
+            //If player have not finish placing all the ships, the system reset all 
+            //ShipView and all ShipModel and ask player to place them all again
             if(player.numOfShips < NUMBER_OF_SHIPS) {
-            	//update the string to print error message?
-            	//then maybe reset all ShipView and all ShipModel and ask player to place them again?
+            	view.setTextField("Incomplete ship placement, please start over again!");
+            	player.reset();
+            	AIPlayer.reset();
             }
-            
-            //after pressing "finish placing" button, this AI.setShip method will randomly place
+            //Once ship placement complete, this AI.setShip method will randomly place
             //all ships at once
             AIPlayer.setShip();
             
-            
+            player.display();//testing for the Model
+            AIPlayer.display();//testing for the Model
             return ValveResponse.EXECUTED;
         }
     }
     
-    //Are we going to combine this with the DoFireMissile valve?
-    private class DoShootMissileResultValve implements Valve {
-        @Override
-        public ValveResponse execute(Message message) {
-            if (message.getClass() != ShootMissileResultMessage.class) {
+    private class DoRemoveShipValve implements Valve {
+    	@Override
+    	public ValveResponse execute(Message message) {
+    		if (message.getClass() != RemoveShipMessage.class) {
                 return ValveResponse.MISS;
             }
-            // otherwise message is of FinishPlaceMessage type
-            ShootMissileResultMessage shootMissileResultMessage = (ShootMissileResultMessage) message;
-            // actions in Model
-            
-            // actions in View
-            
-            
-            return ValveResponse.EXECUTED;
-        }
+    		// otherwise message is of RemoveShipMessage type
+    		RemoveShipMessage removeShipMessage = (RemoveShipMessage) message;
+    		
+    		//actions in Model and View
+    		player.removeShip(removeShipMessage.getX(), removeShipMessage.getY(), 
+    				removeShipMessage.getLength(), removeShipMessage.isVertical());
+    		
+    		return ValveResponse.EXECUTED;
+    	}
     }
-    
-    //updates string in the textfield
-    private class DoUpdateStringMessageValve implements Valve {
-        @Override
-        public ValveResponse execute(Message message) {
-            if (message.getClass() != UpdateStringMessage.class) {
-                return ValveResponse.MISS;
-            }
-            // otherwise message is of FinishPlaceMessage type
-            UpdateStringMessage updateStringMessage = (UpdateStringMessage) message;
-            // actions in Model
-            
-            // actions in View
-            
-            
-            return ValveResponse.EXECUTED;
-        }
-    }
-
 }
 
