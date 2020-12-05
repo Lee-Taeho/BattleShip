@@ -23,10 +23,9 @@ public class Grid implements Iterable {
         initY = y;
         squares = new SquareShape[ROWS][COLUMNS];
         SquareShape square;
-        int width = SquareShape.getWidth();
         for(int i = 0; i < ROWS ; i ++){
             for(int j = 0; j < COLUMNS; j ++){
-                square = new SquareShape(j * width +initX,i * width + initY + width);
+                square = new SquareShape(j * squareWidth +initX,i * squareWidth + initY + squareWidth);
                 squares[i][j] = square;
             }
         }
@@ -59,16 +58,15 @@ public class Grid implements Iterable {
         g2.setFont(font);
         g2.setColor(Color.BLACK);
         String text;
-        int width = SquareShape.getWidth();
 
         for(int i = 0; i < ROWS; i++){
             text = Integer.toString(i);
-            g2.drawString(text,initX + 10 + width * i ,width - 10);
+            g2.drawString(text,initX + 10 + squareWidth * i ,squareWidth - 10);
 
         }
         for (int i = 0; i < COLUMNS; i++){
             text = Integer.toString(i);
-            g2.drawString(text, ROWS * width + 10, width * (i + 2) -10);
+            g2.drawString(text, ROWS * squareWidth + 10, squareWidth * (i + 2) -10);
         }
 
 
@@ -84,8 +82,8 @@ public class Grid implements Iterable {
     }
 
     public boolean contains(Point2D p){
-        return initX <= p.getX() && p.getX() <= initX + COLUMNS * SquareShape.getWidth()
-                && initY <= p.getY() && p.getY() <= initY + ROWS * SquareShape.getWidth();
+        return initX <= p.getX() && p.getX() <= initX + (COLUMNS + 1) * squareWidth
+                && initY + squareWidth <= p.getY() && p.getY() <= initY + (ROWS + 1)* squareWidth;
     }
 
 
@@ -118,6 +116,7 @@ public Iterator iterator() {
 }
 
     private SquareShape[][] squares;
+    private int squareWidth = SquareShape.getWidth();
     private int ROWS ;
     private int COLUMNS ;
     private int initX;

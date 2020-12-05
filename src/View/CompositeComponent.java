@@ -154,16 +154,16 @@ public class CompositeComponent extends JComponent{
                     if(event.getButton() == 1){
                         if(s.indexOf()[1] == -1 && s.indexOf()[0] == -1 ){
                             s.setSelected(true);
-                            s.setPosition(mousePoint);
+                            s.setPosition(event.getX() - SquareShape.getWidth() / 2, event.getY() -SquareShape.getWidth() / 2);
+
+                        }else{
+                            s.setSelected(true);
+                            s.setPosition(event.getX() - SquareShape.getWidth() / 2, event.getY() -SquareShape.getWidth() / 2);
                             try {
                                 queue.put(new RemoveShipMessage(s));
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-
-                        }else{
-                            s.setSelected(true);
-                            s.setPosition(event.getX() - SquareShape.getWidth() / 2, event.getY() -SquareShape.getWidth() / 2);
                         }
 
                     }else if(event.getButton() == 3){

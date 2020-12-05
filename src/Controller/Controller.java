@@ -30,6 +30,7 @@ public class Controller {
         
         this.queue = queue;
         valves.add(new DoPlaceNewShipValve());
+        valves.add(new DoRemoveShipValve());
         valves.add(new DoPlacingFinishValve());
         valves.add(new DoFireMissileValve());
         valves.add(new DoShootMissileResultValve());
@@ -156,6 +157,27 @@ public class Controller {
             return ValveResponse.EXECUTED;
         }
     }
+
+    private class DoRemoveShipValve implements Valve{
+
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != RemoveShipMessage.class) {
+                return ValveResponse.MISS;
+            }
+            // otherwise message is of PlaceMessage type
+            RemoveShipMessage removeShipMessage = (RemoveShipMessage) message;
+
+            // actions in Model
+            player.removeShip(removeShipMessage.getX(),removeShipMessage.getY(),removeShipMessage.getLength(),removeShipMessage.isVertical());
+            // actions in View
+
+
+            player.display(); //testing for the model
+
+            return ValveResponse.EXECUTED;
+        }
+    }
     
     //After pressing the "finish & start" button, AI grid randomly place all ships
     private class DoPlacingFinishValve implements Valve {
@@ -220,5 +242,6 @@ public class Controller {
             return ValveResponse.EXECUTED;
         }
     }
+
 }
 
