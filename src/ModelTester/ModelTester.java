@@ -14,7 +14,7 @@ public class ModelTester {
 		ShipModel s3 = new ShipModel(5,6,3,false);
 		ShipModel s4 = new ShipModel(7,1,4,true);
 		ShipModel s5 = new ShipModel(3,8,5,false);
-		PlayerModel p1 = new PlayerModel(s1, s2, s3, s4, s5);
+		PlayerModel p1 = new PlayerModel();
 		p1.setShip(s1);
 		p1.setShip(s2);
 		p1.setShip(s3);
