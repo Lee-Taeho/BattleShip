@@ -1,3 +1,10 @@
+package Controller;
+
+import Controller.Controller;
+import Message.Message;
+import Model.AIPlayerModel;
+import Model.PlayerModel;
+import View.View;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

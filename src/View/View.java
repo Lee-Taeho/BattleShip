@@ -90,6 +90,10 @@ public class View {
         textField.setText(string);
     }
 
+    public void dispose(){
+
+    }
+
     private CompositeComponent battleshipBoard;
     private BlockingQueue<Message> queue;
     JTextField textField;

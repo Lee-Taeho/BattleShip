@@ -151,7 +151,7 @@ public class Controller {
                 view.setTextField("Ship overlaps with other ships, try again!");
             }
             
-
+            player.display(); //testing for the model
 
             return ValveResponse.EXECUTED;
         }
