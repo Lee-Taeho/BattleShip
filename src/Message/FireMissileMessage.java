@@ -3,12 +3,12 @@ package Message;
 public class FireMissileMessage implements Message{
 	int x;
 	int y;
-	boolean atPlayer;
+	boolean playerToAI;
 	
 	public FireMissileMessage() {
 		x = -1;
 		y = -1;
-		atPlayer = false;
+		playerToAI = false;
 	}
 	
 	public int getX() {
@@ -27,11 +27,11 @@ public class FireMissileMessage implements Message{
 		this.y = y;
 	}
 	
-	public boolean isAI() {
-		return atPlayer;
+	public boolean isPlayerToAI() {
+		return playerToAI;
 	}
 	
-	public void setIsAI(boolean isAI) {
-		this.atPlayer = atPlayer;
+	public void setplayerToAI(boolean playerToAI) {
+		this.playerToAI = playerToAI;
 	}
 }
