@@ -48,6 +48,7 @@ public class View {
 
         textField = new JTextField("Initial text field");
         textField.setEnabled(false);
+        textField.setColumns(4);
 
 
         JPanel buttons = new JPanel();
