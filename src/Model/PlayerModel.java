@@ -207,6 +207,7 @@ public class PlayerModel {
 				xPos[i] = x;
 				yPos[i] = y;
 				map[y][x] = 0;
+				checkSetShip[y][x] = false;
 				if(vertical) {
 					y++;
 				}else {
@@ -219,6 +220,7 @@ public class PlayerModel {
 				xPos[i] = x;
 				yPos[i] = y;
 				map[y][x] = 0;
+				checkSetShip[y][x] = false;
 				if(vertical) {
 					y++;
 				}else {
@@ -231,6 +233,7 @@ public class PlayerModel {
 				xPos[i] = x;
 				yPos[i] = y;
 				map[y][x] = 0;
+				checkSetShip[y][x] = false;
 				if(vertical) {
 					y++;
 				}else {
@@ -243,6 +246,7 @@ public class PlayerModel {
 				xPos[i] = x;
 				yPos[i] = y;
 				map[y][x] = 0;
+				checkSetShip[y][x] = false;
 				if(vertical) {
 					y++;
 				}else {
