@@ -109,7 +109,7 @@ public class SquareShape extends SelectableShape{
 
     private int x;
     private int y;
-    private static int WIDTH = 50;
+    private static int WIDTH = 30;
     private Color c = Color.WHITE;
 
 }

@@ -58,7 +58,7 @@ public class View {
         frame.add(buttons,BorderLayout.NORTH);
         frame.add(battleshipBoard, BorderLayout.CENTER);
         frame.add(textField, BorderLayout.SOUTH);
-        frame.setSize(1200, 1000);
+        frame.setSize(800, 600);
 
 
     }

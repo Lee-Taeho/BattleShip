@@ -188,7 +188,7 @@ public class CompositeComponent extends JComponent{
                                                  ship.setIndex(index[0], index[1]);
                                                  ship.setPosition(square.getPosition());
                                                  ship.setSelected(false);
-                                                 System.out.println("ship placing SUCCEED: ["+ index[0] +"]["+index[1]+"]");
+                                                 System.out.println("ship placing SUCCEED: ["+ index[1] +"]["+index[0]+"]");
 
                                                  PlaceNewShipMessage message =
                                                          new PlaceNewShipMessage(ship);

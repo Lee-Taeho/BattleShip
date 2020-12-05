@@ -33,9 +33,9 @@ public class Grid implements Iterable {
 
     }
 
-    public SquareShape getSquare(int i, int j){
+    public SquareShape getSquare(int y, int x){
 
-        return squares[i][j];
+        return squares[y][x];
     }
 
     public int[] indexOf(SquareShape s){
@@ -55,7 +55,7 @@ public class Grid implements Iterable {
 
     public void draw(Graphics2D g2){
 
-        Font font = new Font("Serif", Font.PLAIN , 30);
+        Font font = new Font("Serif", Font.PLAIN , 20);
         g2.setFont(font);
         g2.setColor(Color.BLACK);
         String text;
@@ -63,12 +63,12 @@ public class Grid implements Iterable {
 
         for(int i = 0; i < ROWS; i++){
             text = Integer.toString(i);
-            g2.drawString(text,initX + 18 + width * i ,width - 10);
+            g2.drawString(text,initX + 10 + width * i ,width - 10);
 
         }
         for (int i = 0; i < COLUMNS; i++){
             text = Integer.toString(i);
-            g2.drawString(text, ROWS * width + 18, width * (i + 2) -10);
+            g2.drawString(text, ROWS * width + 10, width * (i + 2) -10);
         }
 
 

@@ -17,22 +17,22 @@ public class PlaceNewShipMessage implements Message{ // might have to add new va
 	
 	public int getX() {
 
-		return ship.indexOf()[0];
+		return ship.indexOf()[1];
 	}
 	
 	public void setX(int x) {
 
-		ship.indexOf()[0] = x;
+		ship.indexOf()[1] = x;
 	}
 	
 	public int getY() {
 
-		return ship.indexOf()[1];
+		return ship.indexOf()[0];
 	}
 	
 	public void setY(int y) {
 
-		ship.indexOf()[1] = y;
+		ship.indexOf()[0] = y;
 	}
 	
 	public int getLength() {
