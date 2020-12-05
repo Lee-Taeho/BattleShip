@@ -80,9 +80,6 @@ public class View {
         battleshipBoard.addShip(new ShipView(4,6* width, 11 * width));
         battleshipBoard.addShip(new ShipView(3,0,13 * width - 25));
         battleshipBoard.addShip(new ShipView(3,4 * width,13 * width- 25));
-        battleshipBoard.addShip(new ShipView(3,0,15 * width - 50));
-        battleshipBoard.addShip(new ShipView(2,4 * width,15 * width - 50));
-        battleshipBoard.addShip(new ShipView(2,7 * width,15 * width - 50));
         battleshipBoard.addShip(new ShipView(2,8 * width,13 * width - 25));
     }
 
