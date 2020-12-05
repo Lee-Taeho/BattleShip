@@ -1,16 +1,22 @@
 package View;
 
+import Message.Message;
+import Message.PlaceNewShipMessage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
 
 public class CompositeComponent extends JComponent{
 
 
-    public CompositeComponent (){
+    public CompositeComponent (BlockingQueue<Message> q){
+        queue = q;
+
         gridCoordinate = new SquareShape[ROWS][COLUMNS];
 
         playerGrid = new Grid(ROWS,COLUMNS,0,0);
@@ -188,6 +194,14 @@ public class CompositeComponent extends JComponent{
                                                  ship.setSelected(false);
                                                  System.out.println("ship placing SUCCEED: ["+ index[0] +"]["+index[1]+"]");
 
+                                                 PlaceNewShipMessage message =
+                                                         new PlaceNewShipMessage(ship);
+                                                 try {
+                                                     queue.put(message);
+                                                 } catch (InterruptedException e) {
+                                                     e.printStackTrace();
+                                                 }
+
                                         }else{
                                              ship.resetPosition();
                                              System.out.println("ship placing failed: size doesn't fit");
@@ -286,6 +300,7 @@ public class CompositeComponent extends JComponent{
     private Grid playerGrid;
     private Grid AIGrid;
     private ArrayList<ShipView> ships;
+    private BlockingQueue<Message> queue;
     private int ROWS = 10;
     private int COLUMNS = 10;
 

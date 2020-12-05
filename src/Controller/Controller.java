@@ -20,7 +20,7 @@ public class Controller {
     
     //private GameInfo gameInfo; // Direct reference to the state of the Game/Application
 
-    private List<Valve> valves = new LinkedList<Valve>();
+    private List<Valve> valves = new LinkedList<>();
 
     public Controller(View view, PlayerModel player, AIPlayerModel AIPlayer, BlockingQueue<Message> queue) {
         this.view = view;
@@ -144,10 +144,14 @@ public class Controller {
             
             // actions in Model
             ShipModel s = new ShipModel(placeNewShipMessage.getX(), placeNewShipMessage.getY(), 
-            		placeNewShipMessage.getLength(), placeNewShipMessage.vertical());
-            player.setShip(s);
-            
+            		placeNewShipMessage.getLength(), placeNewShipMessage.isVertical());
             // actions in View
+            if(!player.setShip(s)){ // if the ship overlapped with previous ships
+                placeNewShipMessage.getShip().resetPosition();
+                view.setTextField("Ship overlaps with other ships, try again!");
+            }
+            
+
 
             return ValveResponse.EXECUTED;
         }

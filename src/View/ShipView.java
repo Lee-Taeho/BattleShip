@@ -120,6 +120,7 @@ public class ShipView extends SelectableShape{
 //    }
 
     public int[] indexOf(){
+
         return new int[] {xCoordinate,yCoordinate};
     }
 
