@@ -33,24 +33,16 @@ public class PlayerModel {
 	
 	//display method only for testing
 	public void display() {
-		int colNum = 1;
+		int colNum = 0;
 		System.out.print("     ");
-		for(;colNum <= MAP_SIZE; colNum++) {
-			if(colNum < 10) {
-				System.out.print(colNum + "   ");
-			}else
-				System.out.print(colNum + "  ");
+		for(;colNum < MAP_SIZE; colNum++) {
+			System.out.print(colNum + "   ");
 		}
 		System.out.println();
 		System.out.println();
 		for(int x = 0; x < MAP_SIZE; x++) {
-			if(x < 9) {
-				System.out.print(x + 1 + "    ");
-			}else
-				System.out.print(x + 1 + "   ");
+			System.out.print(x + 1 + "    ");
 			for(int y = 0; y < MAP_SIZE; y++) {
-				//only for testing
-				
 				if(map[x][y] == 0) {
 					System.out.print(".   "); //empty space
 				}else if(map[x][y] == -1) {
