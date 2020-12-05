@@ -16,16 +16,11 @@ public class PlayerModel {
 	ShipModel s4;
 	ShipModel s5;
 	
-	public PlayerModel(ShipModel s1, ShipModel s2, ShipModel s3, ShipModel s4, ShipModel s5) {
+	public PlayerModel() {
 		numOfShots = 0;
 		numOfHits = 0;
 		numOfShips = 0;
 		numOfSunk = 0;
-		this.s1 = s1;
-		this.s2 = s2;
-		this.s3 = s3;
-		this.s4 = s4;
-		this.s5 = s5;
 		map = new int [MAP_SIZE][MAP_SIZE];
 		checkSetShip = new boolean[MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
@@ -121,6 +116,11 @@ public class PlayerModel {
 	}
 	
 	public boolean attackedByAI() {
+		
+		//This part is for the AI consecutive firing behavior
+		
+		//==================================================
+		
 		int xPos = rand.nextInt(10);
 		int yPos = rand.nextInt(10);
 		if(map[yPos][xPos] == 0) { //hits empty space -> 0
