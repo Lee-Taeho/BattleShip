@@ -75,14 +75,15 @@ public class View {
 
     public void addShips(){
 
-        battleshipBoard.addShip(new ShipView(5,0,10 * SquareShape.getWidth()));
-        battleshipBoard.addShip(new ShipView(4,6* SquareShape.getWidth(), 10 *SquareShape.getWidth()));
-        battleshipBoard.addShip(new ShipView(3,0,12 * SquareShape.getWidth() - 25));
-        battleshipBoard.addShip(new ShipView(3,4 * SquareShape.getWidth(),12 * SquareShape.getWidth()- 25));
-        battleshipBoard.addShip(new ShipView(3,0,14 * SquareShape.getWidth() - 50));
-        battleshipBoard.addShip(new ShipView(2,4 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
-        battleshipBoard.addShip(new ShipView(2,7 * SquareShape.getWidth(),14 * SquareShape.getWidth() - 50));
-        battleshipBoard.addShip(new ShipView(2,8 * SquareShape.getWidth(),12 * SquareShape.getWidth() - 25));
+        int width = SquareShape.getWidth();
+        battleshipBoard.addShip(new ShipView(5,0,11 * width));
+        battleshipBoard.addShip(new ShipView(4,6* width, 11 * width));
+        battleshipBoard.addShip(new ShipView(3,0,13 * width - 25));
+        battleshipBoard.addShip(new ShipView(3,4 * width,13 * width- 25));
+        battleshipBoard.addShip(new ShipView(3,0,15 * width - 50));
+        battleshipBoard.addShip(new ShipView(2,4 * width,15 * width - 50));
+        battleshipBoard.addShip(new ShipView(2,7 * width,15 * width - 50));
+        battleshipBoard.addShip(new ShipView(2,8 * width,13 * width - 25));
     }
 
     public void setTextField(String string){

@@ -67,10 +67,6 @@ public class CompositeComponent extends JComponent{
         return ships;
     }
 
-    // placeShipMessage(){
-    //      int row;
-    //      int column;
-    // }
 
     public void reset(){
         gridCoordinate = new SquareShape[ROWS][COLUMNS];

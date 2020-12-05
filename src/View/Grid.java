@@ -1,7 +1,9 @@
 package View;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 
 public class Grid implements Iterable {
@@ -21,9 +23,10 @@ public class Grid implements Iterable {
         initY = y;
         squares = new SquareShape[ROWS][COLUMNS];
         SquareShape square;
+        int width = SquareShape.getWidth();
         for(int i = 0; i < ROWS ; i ++){
             for(int j = 0; j < COLUMNS; j ++){
-                square = new SquareShape(j * SquareShape.getWidth() +initX,i * SquareShape.getWidth() + initY);
+                square = new SquareShape(j * width +initX,i * width + initY + width);
                 squares[i][j] = square;
             }
         }
@@ -52,11 +55,32 @@ public class Grid implements Iterable {
 
     public void draw(Graphics2D g2){
 
+        Font font = new Font("Serif", Font.PLAIN , 30);
+        g2.setFont(font);
+        g2.setColor(Color.BLACK);
+        String text;
+        int width = SquareShape.getWidth();
+
+        for(int i = 0; i < ROWS; i++){
+            text = Integer.toString(i);
+            g2.drawString(text,initX + 18 + width * i ,width - 10);
+
+        }
+        for (int i = 0; i < COLUMNS; i++){
+            text = Integer.toString(i);
+            g2.drawString(text, ROWS * width + 18, width * (i + 2) -10);
+        }
+
+
         for (SquareShape[] squareArray : squares){
             for(SquareShape s : squareArray){
                 s.draw(g2);
             }
         }
+
+
+
+
     }
 
     public boolean contains(Point2D p){
