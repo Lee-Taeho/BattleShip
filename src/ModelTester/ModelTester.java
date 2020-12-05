@@ -48,11 +48,29 @@ public class ModelTester {
 				}
 				*/
 				
-				System.out.println("Enter the x coordinate of your firing position (1 ~ 10): ");
-				int xPos = s.nextInt() - 1;
+				/**
+				//testing removeShip method
+				System.out.println("testing removeShip, enter x of the ship you want to remove");
+				int x = s.nextInt();
+				System.out.println("enter x of the ship you want to remove");
+				int y = s.nextInt();
+				System.out.println("enter the length of the ship");
+				int length = s.nextInt();
+				System.out.println("enter true/false if ship is vertical");
+				boolean vertical = s.nextBoolean();
+				p1.removeShip(x, y, length, vertical);
+				p1.display();
+				System.out.println("=====================================================");
+				p2.display();
+				//================================================================================
+				 */
+
 				
-				System.out.println("Enter the y coordinate of your firing position (1 ~ 10): ");
-				int yPos = s.nextInt() - 1;
+				System.out.println("Enter the x coordinate of your firing position (0 ~ 9): ");
+				int xPos = s.nextInt();
+				
+				System.out.println("Enter the y coordinate of your firing position (0 ~ 9): ");
+				int yPos = s.nextInt();
 				
 				playerContinueFire = p2.attackedByPlayer(xPos, yPos);
 				
