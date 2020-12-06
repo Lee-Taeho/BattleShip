@@ -86,6 +86,7 @@ public class Controller {
             // actions in View
             view.reset();
             view.addShips();
+            System.out.println("Restarting the game");
             
             return ValveResponse.EXECUTED;
         }
@@ -207,6 +208,7 @@ public class Controller {
 
             //actions in View
             view.enableAIGridClicking();
+            view.convertsShipsToGrid();
             view.setTextField("Game start!");
 
 

@@ -33,7 +33,7 @@ public class View {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            battleshipBoard.convertShipsToGridColors();
+//            battleshipBoard.convertShipsToGridColors();
         });
 
         JButton startNewGameButton = new JButton("Start New Game");
@@ -110,6 +110,10 @@ public class View {
 
     public void dispose(){
 
+    }
+
+    public void convertsShipsToGrid(){
+        battleshipBoard.convertShipsToGridColors();
     }
 
     private CompositeComponent battleshipBoard;
