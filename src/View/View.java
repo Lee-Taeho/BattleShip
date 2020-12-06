@@ -1,7 +1,8 @@
 package View;
 
 import Message.Message;
-import Message.PlaceNewShipMessage;
+import Message.NewGameMessage;
+import Message.PlacingFinishedMessage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,34 +27,31 @@ public class View {
         battleshipBoard = new CompositeComponent(queue);
         addShips();
 
-        JButton finished_placing_button = new JButton("Finished placing");
-        finished_placing_button.addActionListener( (event) -> {
-                    for(ShipView ship: battleshipBoard.getShipList()){
+        JButton finishedPlacingButton = new JButton("Finished placing");
+        finishedPlacingButton.addActionListener((event) ->{
+            try {
+                queue.put(new PlacingFinishedMessage());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
-                        PlaceNewShipMessage message =
-                                new PlaceNewShipMessage(ship);
-                        try {
-                            queue.put(message); // <--- take next message from the queue
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        // Add the message into the queue such as queue.put(message);
-                    }
-                }
-
-        );
-        JButton shootButton = new JButton("Shoot");
+        JButton startNewGameButton = new JButton("Start New Game");
+        startNewGameButton.addActionListener((event) -> {
+            try {
+                queue.put(new NewGameMessage());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
         textField = new JTextField("Initial text field");
         textField.setEnabled(false);
-        textField.setColumns(4);
 
 
         JPanel buttons = new JPanel();
-        buttons.add(finished_placing_button);
-        buttons.add(shootButton);
+        buttons.add(finishedPlacingButton);
+        buttons.add(startNewGameButton);
 
 
         frame.add(buttons,BorderLayout.NORTH);
@@ -86,6 +84,20 @@ public class View {
 
     public void setTextField(String string){
         textField.setText(string);
+    }
+
+    public void enableAIGridClicking(){
+        battleshipBoard.enableClicking();
+    }
+
+    public void disableAIGridClicking(){
+        battleshipBoard.disableClicking();
+    }
+
+    public void resetShipPosition(){
+        for(ShipView ship : battleshipBoard.getShipList()){
+            ship.resetPosition();
+        }
     }
 
     public void dispose(){

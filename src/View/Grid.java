@@ -82,7 +82,7 @@ public class Grid implements Iterable {
     }
 
     public boolean contains(Point2D p){
-        return initX <= p.getX() && p.getX() <= initX + (COLUMNS + 1) * squareWidth
+        return initX <= p.getX() && p.getX() <= initX + COLUMNS * squareWidth
                 && initY + squareWidth <= p.getY() && p.getY() <= initY + (ROWS + 1)* squareWidth;
     }
 

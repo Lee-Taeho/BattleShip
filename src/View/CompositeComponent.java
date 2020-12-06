@@ -42,7 +42,7 @@ public class CompositeComponent extends JComponent{
         ships = new ArrayList<>();
 
 
-        addMouseMotionListener(new GridMouseMotionListener());
+        addMouseMotionListener(new CompositeComponent.PlayerGridMouseMotionListener());
 //        addMouseListener(new GridMouseClickListener());
         addMouseListener(new ShipMouseClickListener());
         addMouseMotionListener(new ShipMouseMotionListener());
@@ -94,20 +94,24 @@ public class CompositeComponent extends JComponent{
         ships = new ArrayList<>();
 
 
-        addMouseMotionListener(new GridMouseMotionListener());
-//        addMouseListener(new GridMouseClickListener());
-        addMouseListener(new ShipMouseClickListener());
-        addMouseMotionListener(new ShipMouseMotionListener());
+
 
     }
 
-    private class GridMouseMotionListener extends MouseMotionAdapter {
+    private class PlayerGridMouseMotionListener extends MouseMotionAdapter {
         @Override
         public void mouseMoved(MouseEvent event){
-            Point mousePoint = event.getPoint();
+            mousePoint = event.getPoint();
 
+            iterateGrid(( playerGrid));
+            iterateGrid(AIGrid);
+
+            repaint();
+        }
+
+        private void iterateGrid(Grid aiGrid) {
             SquareShape s;
-            for (Object temp : playerGrid){
+            for (Object temp : aiGrid){
                 s = (SquareShape) temp;
                 if(s.getColor() != Color.BLACK && s.getColor() != Color.RED) {
                     if (s.contains(mousePoint)) {
@@ -117,16 +121,15 @@ public class CompositeComponent extends JComponent{
                     }
                 }
             }
-            repaint();
         }
     }
 
-    private class GridMouseClickListener extends MouseAdapter {
+    private class AIGridMouseClickListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent event){
             mousePoint = event.getPoint();
             SquareShape s;
-            for (Object temp : playerGrid){
+            for (Object temp : AIGrid){
                 s = (SquareShape) temp;
                 if(s.contains(mousePoint)){
                     if(!s.isSelected()){
@@ -258,49 +261,14 @@ public class CompositeComponent extends JComponent{
         }
     }
 
-// <Failed method. Does not work>
-//    private boolean overlaps(int x, int y, int length, boolean vertical){
-//        int[] coordinates;
-//        int len;
-//        for(Ship ship : ships){
-//            coordinates = ship.indexOf();
-//            len = ship.getLength() -1 ;
-//
-//            if(coordinates[0] != -1 && coordinates[1] != -1){
-//                if(ship.isVertical()){
-//                    if(vertical){
-//                        for (int i = 0; i < length; i++){
-//                            if(x == coordinates[0] && coordinates[1] <= (y + i) && (y + i) <= (coordinates[1] + len) ){
-//                                return true;
-//                            }
-//                        }
-//                    }else{
-//                        for (int i = 0; i < length; i++){
-//                            if((x + i) == coordinates[0] && coordinates[1] <= y && y <= (coordinates[1] + len) ){
-//                                return true;
-//                            }
-//                        }
-//                    }
-//
-//                }else{
-//                    if(vertical){
-//                        for (int i = 0; i < length; i++){
-//                            if((y + i) == coordinates[1] && coordinates[0] <= x && x <= (coordinates[0] + len) ){
-//                                return true;
-//                            }
-//                        }
-//                    }else{
-//                        for (int i = 0; i < length; i++){
-//                            if( y  == coordinates[1] && coordinates[0] <= (x + i) && (x + i) <= (coordinates[0] + len) ){
-//                                return true;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    public void enableClicking(){
+        addMouseListener(clickListener);
+    }
+
+    public void disableClicking(){
+        removeMouseListener(clickListener);
+    }
+
 
 
 
@@ -312,5 +280,6 @@ public class CompositeComponent extends JComponent{
     private BlockingQueue<Message> queue;
     private int ROWS = 10;
     private int COLUMNS = 10;
+    private AIGridMouseClickListener clickListener = new AIGridMouseClickListener();
 
 }

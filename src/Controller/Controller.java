@@ -84,7 +84,9 @@ public class Controller {
             AIPlayer.reset();
             
             // actions in View
-            //view.reset()?
+            view.reset();
+            view.addShips();
+            view.disableAIGridClicking();
             
             return ValveResponse.EXECUTED;
         }
@@ -195,12 +197,21 @@ public class Controller {
             //telling player to finish placing.
             if(player.numOfShips < NUMBER_OF_SHIPS) {
             	//update the string to print error message?
+                view.setTextField("Please set all the ships in place.");
             	//then maybe reset all ShipView and all ShipModel and ask player to place them again?
+                player.reset();
+                //reset the position of all the ShipView
+                view.resetShipPosition();
+                return ValveResponse.EXECUTED;
             }
             
             //after pressing "finish placing" button, this AI.setShip method will randomly place
             //all ships at once
             AIPlayer.setShip();
+
+            //actions in View
+            view.enableAIGridClicking();
+            view.setTextField("Game start!");
             
             
             return ValveResponse.EXECUTED;
