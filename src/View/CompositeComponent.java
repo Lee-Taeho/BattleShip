@@ -131,20 +131,25 @@ public class CompositeComponent extends JComponent{
             for (Object temp : AIGrid){
                 s = (SquareShape) temp;
                 if(s.contains(mousePoint)){
-                    if(!s.isSelected()){
-                        s.setSelected(true);
-                        s.setColor(Color.BLACK);
+                    if(s.getColor() != Color.BLACK && s.getColor() != Color.RED){
+
                         int[] coordinates = AIGrid.indexOf(s);
                         try {
                             queue.put(new FireMissileMessage(coordinates[1],coordinates[0],FireMissileMessage.TO_AI));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
-                    }else{
-                        s.setSelected(false);
-                        s.setColor(Color.WHITE);
                     }
+
+//                    if(!s.isSelected()){
+//                        s.setSelected(true);
+//                        s.setColor(Color.BLACK);
+//
+//
+//                    }else{
+//                        s.setSelected(false);
+//                        s.setColor(Color.WHITE);
+//                    }
                 }
             }
             repaint();
@@ -312,7 +317,7 @@ public class CompositeComponent extends JComponent{
 
         SquareShape square = AIGrid.getSquare(x,y);
         if(hit){
-            square.setColor(Color.GREEN);
+            square.setColor(Color.RED);
         }else{
             square.setColor(Color.BLACK);
         }
