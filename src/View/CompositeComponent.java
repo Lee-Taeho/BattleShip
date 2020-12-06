@@ -13,7 +13,6 @@ import java.util.concurrent.BlockingQueue;
 
 public class CompositeComponent extends JComponent{
 
-
     public CompositeComponent (BlockingQueue<Message> q){
         queue = q;
 
@@ -303,10 +302,9 @@ public class CompositeComponent extends JComponent{
     }
 
     public void shootPlayer(int x, int y, boolean hit){
-
         SquareShape square = playerGrid.getSquare(x,y);
         if(hit){
-            square.setColor(Color.GREEN);
+            square.setColor(Color.BLUE);
         }else{
             square.setColor(Color.BLACK);
         }
