@@ -45,7 +45,7 @@ public class View {
             }
         });
 
-        textField = new JTextField("Initial text field");
+        textField = new JTextField("<Battleship>: please place all the ships in the left grid to start the game. right click to rotate the ships.");
         textField.setEnabled(false);
 
 

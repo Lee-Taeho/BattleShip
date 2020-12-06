@@ -86,7 +86,6 @@ public class Controller {
             // actions in View
             view.reset();
             view.addShips();
-            view.disableAIGridClicking();
             
             return ValveResponse.EXECUTED;
         }
