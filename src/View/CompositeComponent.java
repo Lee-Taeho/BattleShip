@@ -1,8 +1,7 @@
 package View;
 
-import Message.Message;
-import Message.PlaceNewShipMessage;
-import Message.RemoveShipMessage;
+import Message.*;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -113,7 +112,7 @@ public class CompositeComponent extends JComponent{
             SquareShape s;
             for (Object temp : aiGrid){
                 s = (SquareShape) temp;
-                if(s.getColor() != Color.BLACK && s.getColor() != Color.RED) {
+                if(s.getColor() == Color.WHITE || s.getColor() == Color.LIGHT_GRAY) {
                     if (s.contains(mousePoint)) {
                         s.setColor(Color.LIGHT_GRAY);
                     } else {
@@ -135,6 +134,13 @@ public class CompositeComponent extends JComponent{
                     if(!s.isSelected()){
                         s.setSelected(true);
                         s.setColor(Color.BLACK);
+                        int[] coordinates = AIGrid.indexOf(s);
+                        try {
+                            queue.put(new FireMissileMessage(coordinates[1],coordinates[0],FireMissileMessage.TO_AI));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                     }else{
                         s.setSelected(false);
                         s.setColor(Color.WHITE);
@@ -268,6 +274,51 @@ public class CompositeComponent extends JComponent{
     public void disableClicking(){
         removeMouseListener(clickListener);
     }
+
+    public void convertShipsToGridColors(){
+        for(ShipView ship: ships){
+
+            int len = ship.getLength();
+            int x = ship.indexOf()[1];
+            int y = ship.indexOf()[0];
+            int xi = ship.isVertical()? 0 : 1;
+            int yi = !ship.isVertical()? 0 : 1;
+            SquareShape square;
+
+            for(int i = 0; i <len; i++){
+
+
+                square = playerGrid.getSquare(x +xi * i ,y + yi * i);
+                square.setColor(Color.GREEN);
+            }
+        }
+
+        ships = new ArrayList<>();
+        repaint();
+    }
+
+    public void shootPlayer(int x, int y, boolean hit){
+
+        SquareShape square = playerGrid.getSquare(x,y);
+        if(hit){
+            square.setColor(Color.GREEN);
+        }else{
+            square.setColor(Color.BLACK);
+        }
+        repaint();
+    }
+
+    public void shootAI(int x, int y, boolean hit){
+
+        SquareShape square = AIGrid.getSquare(x,y);
+        if(hit){
+            square.setColor(Color.GREEN);
+        }else{
+            square.setColor(Color.BLACK);
+        }
+        repaint();
+    }
+
 
 
 

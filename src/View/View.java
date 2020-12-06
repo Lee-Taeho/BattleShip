@@ -1,8 +1,7 @@
 package View;
 
-import Message.Message;
-import Message.NewGameMessage;
-import Message.PlacingFinishedMessage;
+import Message.*;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +33,7 @@ public class View {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            battleshipBoard.convertShipsToGridColors();
         });
 
         JButton startNewGameButton = new JButton("Start New Game");
@@ -70,6 +70,14 @@ public class View {
 
     public void reset(){
         battleshipBoard.reset();
+    }
+
+    public void shootPlayer(int x, int y, boolean hit){
+        battleshipBoard.shootPlayer(x, y, hit);
+    }
+
+    public void shootAI(int x, int y, boolean hit){
+        battleshipBoard.shootAI(x, y, hit);
     }
 
     public void addShips(){

@@ -1,9 +1,7 @@
 package View;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 
 public class Grid implements Iterable {
@@ -32,11 +30,16 @@ public class Grid implements Iterable {
 
     }
 
-    public SquareShape getSquare(int y, int x){
+    public SquareShape getSquare(int x, int y){
 
         return squares[y][x];
     }
 
+    /**
+     * Returns the coordinate of a designated square in a grid with an array of ints. [0] stores row(y), [1] stores column(x).
+     * @param s The square contained in grid
+     * @return a Array of ints. [0] stores row (y coordinate), [1] stores column (x coordinate).
+     */
     public int[] indexOf(SquareShape s){
 
         for(int i = 0; i < ROWS ; i ++){

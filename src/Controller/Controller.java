@@ -65,7 +65,7 @@ public class Controller {
         /**
          * Performs certain action in response to message
          */
-        public ValveResponse execute(Message message);
+        ValveResponse execute(Message message);
     }
     //Valve interface =================================================
 
@@ -112,6 +112,8 @@ public class Controller {
             		view.setTextField("Player hits AI ship in [" + fireMissileMessage.getX() + "]["
             		+ fireMissileMessage.getY() + "], Please continue to fire.");
             		//color the hit grid to red
+                    view.shootAI(fireMissileMessage.getX(), fireMissileMessage.getY(), true);
+
             	}else {
             		view.setTextField("Player hits empty spot in [" + fireMissileMessage.getX() + "]["
                     		+ fireMissileMessage.getY() + "], AI's turn to fire now.");
@@ -119,6 +121,7 @@ public class Controller {
             		//call player attack method to do its turns and consecutive firing
             		AIPlayer.attackedByPlayer(fireMissileMessage.getX(), fireMissileMessage.getY());
             		//update the grid based on the results and update strings
+                    view.shootAI(fireMissileMessage.getX(), fireMissileMessage.getY(), false);
             	}
             //if this is the turn for Player fire onto AI grid
             }

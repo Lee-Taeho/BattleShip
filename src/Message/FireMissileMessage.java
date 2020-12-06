@@ -4,11 +4,18 @@ public class FireMissileMessage implements Message{
 	int x;
 	int y;
 	boolean playerToAI;
+	public static final boolean TO_AI = true;
 	
 	public FireMissileMessage() {
 		x = -1;
 		y = -1;
 		playerToAI = false;
+	}
+
+	public FireMissileMessage(int x, int y, boolean isPlayer){
+		this.x = x;
+		this.y = y;
+		playerToAI = isPlayer;
 	}
 	
 	public int getX() {
