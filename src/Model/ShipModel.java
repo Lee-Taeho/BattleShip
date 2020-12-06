@@ -1,33 +1,39 @@
 package Model;
-
+/** Represents a ship.
+ * @author JiaJun Dai
+*/
 public class ShipModel {
 	private int xPos[];
 	private int yPos[];
 	private int length;
 	private int numHit;
 	private boolean vertical;
-	//private boolean isHit[];
+	private boolean isHit[];
 	
-	//Ship constructor for AIPlayerModel
+	/**
+	* Constructor for AIPlayerModel
+	*/
 	public ShipModel(int length) {
 		this.length = length;
 		xPos = new int[length];
 		yPos = new int[length];
-		//isHit = new boolean[length];
+		isHit = new boolean[length];
 	}
 	
-	//Ship constructor for PlayerModel
+	/**
+	* Constructor for playerModel
+	*/
 	public ShipModel(int x, int y, int length, boolean vertical) {
 		this.length = length;
 		xPos = new int[length];
 		yPos = new int[length];
-		//isHit = new boolean[length];
+		isHit = new boolean[length];
 		this.vertical = vertical;
 		
 		for (int i = 0; i < length; i++) {
 			xPos[i] = x;
 			yPos[i] = y;
-			//isHit[i] = false;
+			isHit[i] = false;
 			if(vertical) {
 				y++;
 			}else {
@@ -38,13 +44,20 @@ public class ShipModel {
 	}
 	
 	/**
-	public void registerHit(int x, int y) {
+	* Register the hit into a boolean array isHit[]
+	* @param x x position of the hit
+	* @param y y position of the hit
+	* @return true if 
+	*/
+	public boolean registerHit(int x, int y) {
 		for(int i = 0; i < length; i++) {
 			if(xPos[i] == x && yPos[i] == y && isHit[i] == false) {
 				numHit++;
 				isHit[i] = true;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public boolean checkIfSunk() {
@@ -54,7 +67,6 @@ public class ShipModel {
 			return false;
 		}
 	}
-	*/
 	
 	public int getGridDisplay() {
 		if(length == 2) {
@@ -93,6 +105,10 @@ public class ShipModel {
 	
 	public void setYPos(int[] yPos) {
 		this.yPos = yPos;
+	}
+	
+	public boolean[] getIsHit() {
+		return isHit;
 	}
 	
 	public boolean isVertical() {

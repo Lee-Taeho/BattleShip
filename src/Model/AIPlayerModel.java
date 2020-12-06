@@ -1,7 +1,8 @@
 package Model;
-
 import java.util.Random;
-
+/** Represents an AI player.
+ * @author JiaJun Dai
+*/
 public class AIPlayerModel {
 	private final int MAP_SIZE = 10;
 	private int map[][];
@@ -21,12 +22,18 @@ public class AIPlayerModel {
 				 checkSetShip[x][y] = false;
 			}
 		}
+		setShip(); //we call setShip() in the constructor
 	}
 	
+	/**
+	* Display method to display AI grid in 2d-array for testing
+	* @param 
+	* @return 
+	*/
 	//display method only for testing
 	public void display() {
 		int colNum = 0;
-		System.out.print("AI   ");
+		System.out.print("     ");
 		for(;colNum < MAP_SIZE; colNum++) {
 			System.out.print(colNum + "   ");
 		}
@@ -67,8 +74,11 @@ public class AIPlayerModel {
 		System.out.println();
 	}
 	
-	//This set ship method will generate all five ships' position randomly
-	//then set checkSetShip[y][x] to true
+	/**
+	* This set ship method will generate all five ships' position randomly
+	* @param 
+	* @return 
+	*/
 	public void setShip () {
 		
 		boolean vertical;
@@ -226,23 +236,44 @@ public class AIPlayerModel {
 		}
 	}
 	
-	
-	//check the ship part position one by one to see
-	//if it overlaps with another ship, and also check if
-	//the xPos[i] and yPos[i] is out of bound, if yes return false
+	/**
+	* check the AI ship part position one by one to see
+	* if it overlaps with another ship, and also check if
+	* the xPos[i] and yPos[i] is out of bound
+	* @param xPos[] an array storing all x coordinates of the ship
+	* @param yPos[] an array storing all y coordinates of the ship
+	* @param length length of the ship
+	* @return true - if overlaps or out of bound return true
+	* @return false - if no overlap or no out of bound return false
+	*/
 	private boolean setShipHelper (int xPos[], int yPos[], int length) {
 		for(int i = 0; i < length; i++) {
-			if(xPos[i] > 9 || xPos[i] < 0 || yPos[i] > 9 || yPos[i] < 0 || checkSetShip[yPos[i]][xPos[i]]) { //out of bound check should go first
-				return false;                                                                                //then the overlap check
+			if(xPos[i] > 9 || xPos[i] < 0 || yPos[i] > 9 || yPos[i] < 0 || checkSetShip[yPos[i]][xPos[i]]) { 
+				//out of bound check should go first, then the overlap check
+				return false;                                                                                
 			}
 		}
 		return true;
 	}
 	
+	/**
+	* check if AI is game over. numOfHits is the number of AI ship
+	* parts that has been hit.
+	* @param 
+	* @return true - numOfHits is equal to 17
+	* @return false - numOfHits is not equal(below) to 17
+	*/
 	public boolean isGameOver() {
 		return numOfHits == 17;
 	}
 	
+	/**
+	* Player fire shot to AI grid.
+	* @param xPos x-position of the shot
+	* @param yPos y-position of the shot
+	* @return true - if player hit a AI ship part and if he misses
+	* @return false - if player fires at a AI ship part that's been hit or a hit spot (duplicated firing)
+	*/
 	public boolean attackedByPlayer(int xPos, int yPos) {
 		if(map[yPos][xPos] == 0) { //hits empty space -> 0
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
@@ -278,6 +309,11 @@ public class AIPlayerModel {
 		}
 	}
 	
+	/**
+	* Resets player grid and all variables
+	* @param 
+	* @return
+	*/
 	public void reset() {
 		numOfShots = 0;
 		numOfHits = 0;
@@ -289,5 +325,6 @@ public class AIPlayerModel {
 				 checkSetShip[x][y] = false;
 			}
 		}
+		setShip(); //we call setShip() in the constructor
 	}
 }
