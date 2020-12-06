@@ -21,7 +21,6 @@ public class AIPlayerModel {
 				 checkSetShip[x][y] = false;
 			}
 		}
-		setShip(); //we call setShip() in the constructor
 	}
 	
 	//display method only for testing
@@ -290,6 +289,5 @@ public class AIPlayerModel {
 				 checkSetShip[x][y] = false;
 			}
 		}
-		setShip(); //we call setShip() in the constructor
 	}
 }
