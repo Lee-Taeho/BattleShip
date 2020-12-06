@@ -105,6 +105,7 @@ public class PlayerModel {
 	}
 	
 	public boolean isGameOver() {
+		System.out.println("Unfortunately, AI wins.....");
 		return numOfHits == 17;
 	}
 	
