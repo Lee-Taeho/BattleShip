@@ -1,9 +1,6 @@
 package Model;
 import java.util.Random;
-/** Represents a player.
- * @author JiaJun Dai
- * @author Kevin Lopez
-*/
+
 public class PlayerModel {
 	private final int MAP_SIZE = 10;
 	private int map[][];
@@ -12,6 +9,8 @@ public class PlayerModel {
 	int numOfHits;
 	int numOfSunk;
 	public int numOfShips;
+	public int xPos;
+	public int yPos;
 	Random rand = new Random();
 	ShipModel s1;
 	ShipModel s2;
@@ -23,7 +22,6 @@ public class PlayerModel {
 		numOfShots = 0;
 		numOfHits = 0;
 		numOfShips = 0;
-		numOfSunk = 0;
 		map = new int [MAP_SIZE][MAP_SIZE];
 		checkSetShip = new boolean[MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
@@ -34,14 +32,10 @@ public class PlayerModel {
 		}
 	}
 	
-	/**
-	* Display method to display player grid in 2d-array for testing
-	* @param 
-	* @return 
-	*/
+	//display method only for testing
 	public void display() {
 		int colNum = 0;
-		System.out.print("     ");
+		System.out.print("play ");
 		for(;colNum < MAP_SIZE; colNum++) {
 			System.out.print(colNum + "   ");
 		}
@@ -76,18 +70,12 @@ public class PlayerModel {
 			System.out.println();
 			System.out.println();
 		}
-		System.out.println("numOfShots: " + numOfShots + ", " + "numOfHits: " + numOfHits + ", " + "numOfShips: " + numOfShips);
+		System.out.println("numOfShots: " + numOfShots + ", " + "numOfHits: " + numOfHits);
 		System.out.println();
 		System.out.println();
 		System.out.println();
 	}
 	
-	/**
-	* This set ship method will set each ship the player puts in
-	* @param s shipModel
-	* @return true ship doesn't overlap with ships already on grid
-	* @return false ship overlap with ships already on grid
-	*/
 	public boolean setShip (ShipModel s) {
 		int[] xPos = s.getXPos();
 		int[] yPos = s.getYPos();
@@ -105,16 +93,6 @@ public class PlayerModel {
 		}
 	}
 	
-	/**
-	* check the player ship part position one by one to see
-	* if it overlaps with another ship, and also check if
-	* the xPos[i] and yPos[i] is out of bound
-	* @param xPos[] an array storing all x coordinates of the ship
-	* @param yPos[] an array storing all y coordinates of the ship
-	* @param length length of the ship
-	* @return true - if overlaps return true
-	* @return false - if no overlap return false
-	*/
 	private boolean setShipHelper (int xPos[], int yPos[], int length) {
 		//first check the ship part position one by one to see
 		//if it overlaps with another ship, if yes return false
@@ -126,31 +104,25 @@ public class PlayerModel {
 		return true;
 	}
 	
-	/**
-	* check if player is game over. numOfSunk is the number of ships
-	* that is sunk.
-	* @param 
-	* @return true - numOfSunk equal to 5
-	* @return false - numOfSunk is not equal(below) to 5
-	*/
 	public boolean isGameOver() {
-		return numOfSunk == 5;
+		if(numOfHits == 17) {
+			System.out.println("Unfortunately, AI wins.....");
+		}
+		return numOfHits == 17;
 	}
 	
-	/**
-	* AI player randomly fire shot to player grid.
-	* @param 
-	* @return true - if AI player hit a player ship part and if he misses
-	* @return false - if AI player fires at a player ship part that's been hit or a hit spot (duplicated firing)
-	*/
 	public boolean attackedByAI() {
 		
 		//This part is for the AI consecutive firing behavior
 		
 		//==================================================
-		
-		int xPos = rand.nextInt(10);
-		int yPos = rand.nextInt(10);
+		xPos = rand.nextInt(10);
+		yPos = rand.nextInt(10);
+		while(map[yPos][xPos] == -1 || map[yPos][xPos] == -2 || map[yPos][xPos] == -3 
+				|| map[yPos][xPos] == -4 || map[yPos][xPos] == -5) { // no duplicated firing
+			xPos = rand.nextInt(10);
+			yPos = rand.nextInt(10);
+		}
 		if(map[yPos][xPos] == 0) { //hits empty space -> 0
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
@@ -158,64 +130,30 @@ public class PlayerModel {
 			
 		}else if(map[yPos][xPos] == 2) { //hits length-2 Ship part -> 2
 			map[yPos][xPos] = -2; //change it to length-2 ship part that's been hit -> -2
-			s1.registerHit(xPos, yPos);
-			numOfHits++;
-			if(s1.checkIfSunk()) {
-				numOfSunk++;
-				numOfShips--;
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 3) { //hits length-2 Ship part -> 3
 			map[yPos][xPos] = -3; //change it to length-2 ship part that's been hit -> -3
-			
-			if(s2.contains(xPos, yPos)) {     //since we have two length 3 ship, one is s2, one is s3
-				s2.registerHit(xPos, yPos);   //we need to call ShipModel.contains() to know which one 
-				numOfHits++;                  //it is
-				if(s2.checkIfSunk()) {
-					numOfSunk++;
-					numOfShips--;
-				}
-			}else if(s3.contains(xPos, yPos)) {
-				s3.registerHit(xPos, yPos);
-				numOfHits++;
-				if(s3.checkIfSunk()) {
-					numOfSunk++;
-					numOfShips--;
-				}
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 4) { //hits length-2 Ship part -> 4
 			map[yPos][xPos] = -4; //change it to length-2 ship part that's been hit -> -4
-			s4.registerHit(xPos, yPos);
-			numOfHits++;
-			if(s4.checkIfSunk()) {
-				numOfSunk++;
-				numOfShips--;
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 5) { //hits length-2 Ship part -> 5
 			map[yPos][xPos] = -5; //change it to length-2 ship part that's been hit -> -5
-			s5.registerHit(xPos, yPos);
-			numOfHits++;
-			if(s5.checkIfSunk()) {
-				numOfSunk++;
-				numOfShips--;
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
-		}else { //all duplicated firing -> -1, -2, -3, -4, -5
-			return false; //return false
+		}else { //should never get here
+			return false; 
 		}
 	}
 	
@@ -234,13 +172,7 @@ public class PlayerModel {
 		}
 	}
 	
-	/**
-	* Remove the ship which player already placed onto the grid, by
-	* left clicking on the ship in View
-	* @param x x position of the mouse click on AI grid
-	* @param y y position of the mouse click on AI grid
-	* @return 
-	*/
+	//This part just updates the player grid when we remove the ship
 	public void removeShip(int x, int y, int length, boolean vertical) {
 		int[] xPos = new int[length];
 		int[] yPos = new int[length];
@@ -301,5 +233,13 @@ public class PlayerModel {
 			}
 			numOfShips--;
 		}
+	}
+	
+	public int getXPos() {
+		return xPos;
+	}
+	
+	public int getYPos() {
+		return yPos;
 	}
 }
