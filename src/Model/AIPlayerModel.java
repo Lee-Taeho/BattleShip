@@ -26,7 +26,7 @@ public class AIPlayerModel {
 	//display method only for testing
 	public void display() {
 		int colNum = 0;
-		System.out.print("     ");
+		System.out.print("AI   ");
 		for(;colNum < MAP_SIZE; colNum++) {
 			System.out.print(colNum + "   ");
 		}

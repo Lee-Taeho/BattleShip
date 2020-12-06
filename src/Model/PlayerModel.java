@@ -9,6 +9,8 @@ public class PlayerModel {
 	int numOfHits;
 	int numOfSunk;
 	public int numOfShips;
+	public int xPos;
+	public int yPos;
 	Random rand = new Random();
 	ShipModel s1;
 	ShipModel s2;
@@ -20,7 +22,6 @@ public class PlayerModel {
 		numOfShots = 0;
 		numOfHits = 0;
 		numOfShips = 0;
-		numOfSunk = 0;
 		map = new int [MAP_SIZE][MAP_SIZE];
 		checkSetShip = new boolean[MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
@@ -34,7 +35,7 @@ public class PlayerModel {
 	//display method only for testing
 	public void display() {
 		int colNum = 0;
-		System.out.print("     ");
+		System.out.print("play ");
 		for(;colNum < MAP_SIZE; colNum++) {
 			System.out.print(colNum + "   ");
 		}
@@ -69,7 +70,7 @@ public class PlayerModel {
 			System.out.println();
 			System.out.println();
 		}
-		System.out.println("numOfShots: " + numOfShots + ", " + "numOfHits: " + numOfHits + ", " + "numOfShips: " + numOfShips);
+		System.out.println("numOfShots: " + numOfShots + ", " + "numOfHits: " + numOfHits);
 		System.out.println();
 		System.out.println();
 		System.out.println();
@@ -104,7 +105,7 @@ public class PlayerModel {
 	}
 	
 	public boolean isGameOver() {
-		return numOfSunk == 5;
+		return numOfHits == 17;
 	}
 	
 	public boolean attackedByAI() {
@@ -113,8 +114,8 @@ public class PlayerModel {
 		
 		//==================================================
 		
-		int xPos = rand.nextInt(10);
-		int yPos = rand.nextInt(10);
+		xPos = rand.nextInt(10);
+		yPos = rand.nextInt(10);
 		if(map[yPos][xPos] == 0) { //hits empty space -> 0
 			map[yPos][xPos] = -1;  //change it to missed shot -> -1
 			numOfShots++;
@@ -122,58 +123,24 @@ public class PlayerModel {
 			
 		}else if(map[yPos][xPos] == 2) { //hits length-2 Ship part -> 2
 			map[yPos][xPos] = -2; //change it to length-2 ship part that's been hit -> -2
-			s1.registerHit(xPos, yPos);
-			numOfHits++;
-			if(s1.checkIfSunk()) {
-				numOfSunk++;
-				numOfShips--;
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 3) { //hits length-2 Ship part -> 3
 			map[yPos][xPos] = -3; //change it to length-2 ship part that's been hit -> -3
-			
-			if(s2.contains(xPos, yPos)) {     //since we have two length 3 ship, one is s2, one is s3
-				s2.registerHit(xPos, yPos);   //we need to call ShipModel.contains() to know which one 
-				numOfHits++;                  //it is
-				if(s2.checkIfSunk()) {
-					numOfSunk++;
-					numOfShips--;
-				}
-			}else if(s3.contains(xPos, yPos)) {
-				s3.registerHit(xPos, yPos);
-				numOfHits++;
-				if(s3.checkIfSunk()) {
-					numOfSunk++;
-					numOfShips--;
-				}
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 4) { //hits length-2 Ship part -> 4
 			map[yPos][xPos] = -4; //change it to length-2 ship part that's been hit -> -4
-			s4.registerHit(xPos, yPos);
-			numOfHits++;
-			if(s4.checkIfSunk()) {
-				numOfSunk++;
-				numOfShips--;
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
 			
 		}else if(map[yPos][xPos] == 5) { //hits length-2 Ship part -> 5
 			map[yPos][xPos] = -5; //change it to length-2 ship part that's been hit -> -5
-			s5.registerHit(xPos, yPos);
-			numOfHits++;
-			if(s5.checkIfSunk()) {
-				numOfSunk++;
-				numOfShips--;
-			}
 			numOfShots++;
 			numOfHits++;
 			return true;
@@ -259,5 +226,13 @@ public class PlayerModel {
 			}
 			numOfShips--;
 		}
+	}
+	
+	public int getXPos() {
+		return xPos;
+	}
+	
+	public int getYPos() {
+		return yPos;
 	}
 }

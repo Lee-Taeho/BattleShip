@@ -6,14 +6,14 @@ public class ShipModel {
 	private int length;
 	private int numHit;
 	private boolean vertical;
-	private boolean isHit[];
+	//private boolean isHit[];
 	
 	//Ship constructor for AIPlayerModel
 	public ShipModel(int length) {
 		this.length = length;
 		xPos = new int[length];
 		yPos = new int[length];
-		isHit = new boolean[length];
+		//isHit = new boolean[length];
 	}
 	
 	//Ship constructor for PlayerModel
@@ -21,13 +21,13 @@ public class ShipModel {
 		this.length = length;
 		xPos = new int[length];
 		yPos = new int[length];
-		isHit = new boolean[length];
+		//isHit = new boolean[length];
 		this.vertical = vertical;
 		
 		for (int i = 0; i < length; i++) {
 			xPos[i] = x;
 			yPos[i] = y;
-			isHit[i] = false;
+			//isHit[i] = false;
 			if(vertical) {
 				y++;
 			}else {
@@ -37,15 +37,14 @@ public class ShipModel {
 		vertical = true;
 	}
 	
-	public boolean registerHit(int x, int y) {
+	/**
+	public void registerHit(int x, int y) {
 		for(int i = 0; i < length; i++) {
 			if(xPos[i] == x && yPos[i] == y && isHit[i] == false) {
 				numHit++;
 				isHit[i] = true;
-				return true;
 			}
 		}
-		return false;
 	}
 	
 	public boolean checkIfSunk() {
@@ -55,6 +54,7 @@ public class ShipModel {
 			return false;
 		}
 	}
+	*/
 	
 	public int getGridDisplay() {
 		if(length == 2) {
