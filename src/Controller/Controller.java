@@ -47,7 +47,7 @@ public class Controller {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-    
+            
             // Look for a Valve that can process a message
             for (Valve valve : valves) {
                 response = valve.execute(message);
@@ -103,29 +103,53 @@ public class Controller {
             FireMissileMessage fireMissileMessage = (FireMissileMessage) message;
             
             // actions in Model and in View
-            //if this is the turn for Player
-            if(fireMissileMessage.isPlayerToAI()) {
-            	boolean playerHits = AIPlayer.attackedByPlayer(fireMissileMessage.getX(),
-            			fireMissileMessage.getY());
-            	if(playerHits) {
-            		//update the string
-            		view.setTextField("Player hits AI ship in [" + fireMissileMessage.getX() + "]["
-            		+ fireMissileMessage.getY() + "], Please continue to fire.");
-            		//color the hit grid to red
-                    view.shootAI(fireMissileMessage.getX(), fireMissileMessage.getY(), true);
-
-            	}else {
-            		view.setTextField("Player hits empty spot in [" + fireMissileMessage.getX() + "]["
-                    		+ fireMissileMessage.getY() + "], AI's turn to fire now.");
-            		//update the miss grid to black
-            		//call player attack method to do its turns and consecutive firing
-            		AIPlayer.attackedByPlayer(fireMissileMessage.getX(), fireMissileMessage.getY());
-            		//update the grid based on the results and update strings
-                    view.shootAI(fireMissileMessage.getX(), fireMissileMessage.getY(), false);
+            //Player fire first
+            //If player hits
+            if(AIPlayer.attackedByPlayer(fireMissileMessage.getX(),
+            		fireMissileMessage.getY())) {
+            	System.out.println("Player hits AI ship in [" + fireMissileMessage.getX() + "]["
+                    	+ fireMissileMessage.getY() + "], Please continue to fire.");
+            	AIPlayer.display();//for testing
+            	//update the string
+            	view.setTextField("Player hits AI ship in [" + fireMissileMessage.getX() + "]["
+            	+ fireMissileMessage.getY() + "], Please continue to fire.");
+            	//update the hit grid to red
+                view.shootAI(fireMissileMessage.getX(), fireMissileMessage.getY(), true);
+           
+            //If player misses
+            }else {
+            	System.out.println("Player missed the shot in [" + fireMissileMessage.getX() + "]["
+                        + fireMissileMessage.getY() + "], AI's turn to fire now."); //display in console
+            	AIPlayer.display();//for testing
+            	view.setTextField("Player missed the shot in [" + fireMissileMessage.getX() + "]["
+                    + fireMissileMessage.getY() + "], AI's turn to fire now."); //display in text field
+            	//update the miss grid to black
+            	view.shootAI(fireMissileMessage.getX(), fireMissileMessage.getY(), false);
+            	
+            	//===================================================================================
+            	
+            	//after player misses, then it's AI's turn
+            	//If AI hits
+            	while(player.attackedByAI()) {
+            		System.out.println("AI hits player ship in [" + player.getXPos() 
+            		+ "][" + player.getYPos() + "], AI contiune to fire"); //display in console
+            		player.display();//for testing
+            		view.setTextField("AI hits player ship in [" + player.getXPos() 
+            		+ "][" + player.getYPos() + "], AI contiune to fire"); //display in text field
+            		//update the hit grid to blue
+            		view.shootPlayer(player.getXPos(), player.getYPos(), true);
             	}
-            //if this is the turn for Player fire onto AI grid
+            	
+            	//If AI misses
+            	System.out.println("AI missed the shot in [" + player.getXPos() + "]["
+                        + player.getYPos() + "], player's turn to fire now."); //display in console
+            	player.display();//for testing
+            	view.setTextField("AI missed the shot in [" + player.getXPos() + "]["
+                        + player.getYPos() + "], player's turn to fire now."); //display in text field
+            	//update the hit grid to black
+            	view.shootPlayer(player.getXPos(), player.getYPos(), false);
             }
-            return ValveResponse.EXECUTED;
+           return ValveResponse.EXECUTED;
         }
     }
     
@@ -192,6 +216,7 @@ public class Controller {
      
             //If player have not finish placing all the ships, the system reset all
             //ShipView and all ShipModel and ask player to place them all again
+            
             if(player.numOfShips < NUMBER_OF_SHIPS) {
             	//update the string to print error message?
                 view.setTextField("Incomplete ship placement, please start over again!");
