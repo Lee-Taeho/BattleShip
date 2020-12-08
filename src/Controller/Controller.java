@@ -53,7 +53,12 @@ public class Controller {
                 response = valve.execute(message);
                 // if successfully processed or game over, leave the loop
                 if (response != ValveResponse.MISS || player.isGameOver() || AIPlayer.isGameOver()) {
-                    break;
+                    if(player.isGameOver()) {
+                    	view.setTextField("Unfortunately, AI wins.....");
+                    }else if(AIPlayer.isGameOver()) {
+                    	view.setTextField("Congratulations! Player wins!!!!!");
+                    }
+                	break;
                 }
             }
         }
@@ -169,7 +174,7 @@ public class Controller {
             if(!player.setShip(s)){ // if the ship overlapped with previous ships
                 placeNewShipMessage.getShip().resetPosition();
                 view.setTextField("Failed, Ship overlaps with other ships, try again!");
-            }else {
+            }else if(player.setShip(s)){
             	String vertical = (placeNewShipMessage.isVertical()) ? "bottom" : "right";
             	view.setTextField("Succeed, Ship placed on [" + placeNewShipMessage.getX()
             	+ "][" + placeNewShipMessage.getY() + "], towards " + vertical);
