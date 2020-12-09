@@ -1,28 +1,31 @@
 package Model;
 import java.util.Random;
+
 /** Represents an AI player.
  * @author JiaJun Dai
 */
 public class AIPlayerModel {
 	private final int MAP_SIZE = 10;
 	private int map[][];
-	private boolean checkSetShip[][]; //This is a boolean map only use in setShip method
+	private boolean checkShip[][]; 
 	int numOfShots;
 	int numOfHits;
 	Random rand = new Random();
 	
+	/**
+	 * Constructor for class AIPlayerModel
+	 */
 	public AIPlayerModel() {
 		numOfShots = 0;
 		numOfHits = 0;
 		map = new int [MAP_SIZE][MAP_SIZE];
-		checkSetShip = new boolean [MAP_SIZE][MAP_SIZE];
+		checkShip = new boolean [MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
 				 map[x][y] = 0;
-				 checkSetShip[x][y] = false;
+				 checkShip[x][y] = false;
 			}
 		}
-		setShip(); //we call setShip() in the constructor
 	}
 	
 	/**
@@ -30,10 +33,9 @@ public class AIPlayerModel {
 	* @param 
 	* @return 
 	*/
-	//display method only for testing
 	public void display() {
 		int colNum = 0;
-		System.out.print("     ");
+		System.out.print("AI   ");
 		for(;colNum < MAP_SIZE; colNum++) {
 			System.out.print(colNum + "   ");
 		}
@@ -111,7 +113,7 @@ public class AIPlayerModel {
 		
 		for(int i = 0; i < s1.getLength(); i++) {
 			map[yPos1[i]][xPos1[i]] = s1.getGridDisplay();
-			checkSetShip[yPos1[i]][xPos1[i]] = true;
+			checkShip[yPos1[i]][xPos1[i]] = true;
 		}
 		
 		//For ShipModel s2
@@ -140,7 +142,7 @@ public class AIPlayerModel {
 		
 		for(int i = 0; i < s2.getLength(); i++) {
 			map[yPos2[i]][xPos2[i]] = s2.getGridDisplay();
-			checkSetShip[yPos2[i]][xPos2[i]] = true;
+			checkShip[yPos2[i]][xPos2[i]] = true;
 		}
 		
 		//For ShipModel s3
@@ -170,7 +172,7 @@ public class AIPlayerModel {
 
 		for(int i = 0; i < s3.getLength(); i++) {
 			map[yPos3[i]][xPos3[i]] = s3.getGridDisplay();
-			checkSetShip[yPos3[i]][xPos3[i]] = true;
+			checkShip[yPos3[i]][xPos3[i]] = true;
 		}
 		
 		//For ShipModel s4
@@ -201,7 +203,7 @@ public class AIPlayerModel {
 		
 		for(int i = 0; i < s4.getLength(); i++) {
 			map[yPos4[i]][xPos4[i]] = s4.getGridDisplay();
-			checkSetShip[yPos4[i]][xPos4[i]] = true;
+			checkShip[yPos4[i]][xPos4[i]] = true;
 		}
 		
 		//For ShipModel s5
@@ -232,9 +234,10 @@ public class AIPlayerModel {
 		
 		for(int i = 0; i < s5.getLength(); i++) {
 			map[yPos5[i]][xPos5[i]] = s5.getGridDisplay();
-			checkSetShip[yPos5[i]][xPos5[i]] = true;
+			checkShip[yPos5[i]][xPos5[i]] = true;
 		}
 	}
+	
 	
 	/**
 	* check the AI ship part position one by one to see
@@ -248,9 +251,8 @@ public class AIPlayerModel {
 	*/
 	private boolean setShipHelper (int xPos[], int yPos[], int length) {
 		for(int i = 0; i < length; i++) {
-			if(xPos[i] > 9 || xPos[i] < 0 || yPos[i] > 9 || yPos[i] < 0 || checkSetShip[yPos[i]][xPos[i]]) { 
-				//out of bound check should go first, then the overlap check
-				return false;                                                                                
+			if(xPos[i] > 9 || xPos[i] < 0 || yPos[i] > 9 || yPos[i] < 0 || checkShip[yPos[i]][xPos[i]]) { //out of bound check should go first
+				return false;                                                                                //then the overlap check
 			}
 		}
 		return true;
@@ -264,6 +266,9 @@ public class AIPlayerModel {
 	* @return false - numOfHits is not equal(below) to 17
 	*/
 	public boolean isGameOver() {
+		if(numOfHits == 17) {
+			System.out.println("Congratulations! Player wins!!!!!");
+		}
 		return numOfHits == 17;
 	}
 	
@@ -271,8 +276,8 @@ public class AIPlayerModel {
 	* Player fire shot to AI grid.
 	* @param xPos x-position of the shot
 	* @param yPos y-position of the shot
-	* @return true - if player hit a AI ship part and if he misses
-	* @return false - if player fires at a AI ship part that's been hit or a hit spot (duplicated firing)
+	* @return true - if player hit a AI ship part
+	* @return false - if player misses
 	*/
 	public boolean attackedByPlayer(int xPos, int yPos) {
 		if(map[yPos][xPos] == 0) { //hits empty space -> 0
@@ -310,7 +315,7 @@ public class AIPlayerModel {
 	}
 	
 	/**
-	* Resets player grid and all variables
+	* Resets AI grid and all variables
 	* @param 
 	* @return
 	*/
@@ -318,13 +323,27 @@ public class AIPlayerModel {
 		numOfShots = 0;
 		numOfHits = 0;
 		map = new int [MAP_SIZE][MAP_SIZE];
-		checkSetShip = new boolean [MAP_SIZE][MAP_SIZE];
+		checkShip = new boolean [MAP_SIZE][MAP_SIZE];
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
 				 map[x][y] = 0;
-				 checkSetShip[x][y] = false;
+				 checkShip[x][y] = false;
 			}
 		}
-		setShip(); //we call setShip() in the constructor
+	}
+	/**
+	 * get the number of ship part that's hit
+	 * @return numOfHits
+	 */
+	public int getNumOfHits() {
+		return numOfHits;
+	}
+	
+	/**
+	 * get the number of shots AI fired
+	 * @return numOfShots
+	 */
+	public int getNumOfShots() {
+		return numOfShots;
 	}
 }
