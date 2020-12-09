@@ -30,6 +30,8 @@ public class AIPlayerModel {
 	
 	/**
 	* Display method to display AI grid in 2d-array for testing
+	* @param 
+	* @return 
 	*/
 	public void display() {
 		int colNum = 0;
@@ -76,6 +78,8 @@ public class AIPlayerModel {
 	
 	/**
 	* This set ship method will generate all five ships' position randomly
+	* @param 
+	* @return 
 	*/
 	public void setShip () {
 		
@@ -239,10 +243,11 @@ public class AIPlayerModel {
 	* check the AI ship part position one by one to see
 	* if it overlaps with another ship, and also check if
 	* the xPos[i] and yPos[i] is out of bound
-	* @param xPos an array storing all x coordinates of the ship
-	* @param yPos an array storing all y coordinates of the ship
+	* @param xPos[] an array storing all x coordinates of the ship
+	* @param yPos[] an array storing all y coordinates of the ship
 	* @param length length of the ship
 	* @return true - if overlaps or out of bound return true
+	* @return false - if no overlap or no out of bound return false
 	*/
 	private boolean setShipHelper (int xPos[], int yPos[], int length) {
 		for(int i = 0; i < length; i++) {
@@ -258,6 +263,7 @@ public class AIPlayerModel {
 	* parts that has been hit.
 	* @param 
 	* @return true - numOfHits is equal to 17
+	* @return false - numOfHits is not equal(below) to 17
 	*/
 	public boolean isGameOver() {
 		if(numOfHits == 17) {
@@ -271,6 +277,7 @@ public class AIPlayerModel {
 	* @param xPos x-position of the shot
 	* @param yPos y-position of the shot
 	* @return true - if player hit a AI ship part
+	* @return false - if player misses
 	*/
 	public boolean attackedByPlayer(int xPos, int yPos) {
 		if(map[yPos][xPos] == 0) { //hits empty space -> 0
@@ -309,6 +316,8 @@ public class AIPlayerModel {
 	
 	/**
 	* Resets AI grid and all variables
+	* @param 
+	* @return
 	*/
 	public void reset() {
 		numOfShots = 0;
