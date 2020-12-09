@@ -2,6 +2,9 @@ package View;
 
 import java.awt.*;
 
+/**
+ * A abstract class for SquareShape and ShipView to inherit.
+ */
 public abstract class SelectableShape implements GridShape
 {
     public void setSelected(boolean b)
