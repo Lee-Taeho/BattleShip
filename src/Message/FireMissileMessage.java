@@ -7,8 +7,6 @@ package Message;
 public class FireMissileMessage implements Message{
 	int x;
 	int y;
-	boolean playerToAI;
-	public static final boolean TO_AI = true;
 	
 	/**
 	 * Fire missile message default constructor
