@@ -8,6 +8,10 @@ import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Class that directly interact with the Controller class
+ * @author Taeho Lee
+ */
 public class View {
 
     public static View init(BlockingQueue<Message> q) {
@@ -62,24 +66,37 @@ public class View {
 
     }
 
-    public static void main(String[] args){
 
-        BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
-        View view = View.init(queue);
-    }
-
+    /**
+     * Method for resetting the View.
+     */
     public void reset(){
         battleshipBoard.reset();
     }
 
+    /**
+     * Method for shooting player.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param hit whether the missile is hit or not.
+     */
     public void shootPlayer(int x, int y, boolean hit){
         battleshipBoard.shootPlayer(x, y, hit);
     }
 
+    /**
+     * Method for shooting AI.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param hit whether the missile is hit or not.
+     */
     public void shootAI(int x, int y, boolean hit){
         battleshipBoard.shootAI(x, y, hit);
     }
 
+    /**
+     * Method for adding 5 ShipView objects for the game.
+     */
     public void addShips(){
 
         int width = SquareShape.getWidth();
@@ -90,28 +107,47 @@ public class View {
         battleshipBoard.addShip(new ShipView(2,8 * width,13 * width - 25));
     }
 
+    /**
+     * Method that changes the text in the textField in the View.
+     * @param string a substitute String that will be inserted into textField.
+     */
     public void setTextField(String string){
         textField.setText(string);
     }
 
+    /**
+     * Method that enables clicking the AI grid.
+     */
     public void enableAIGridClicking(){
         battleshipBoard.enableClicking();
     }
 
+    /**
+     * Method that disables clicking the AI grid.
+     */
     public void disableAIGridClicking(){
         battleshipBoard.disableClicking();
     }
 
+    /**
+     * Method that sets all the position of the ships to their initial position.
+     */
     public void resetShipPosition(){
         for(ShipView ship : battleshipBoard.getShipList()){
             ship.resetPosition();
         }
     }
 
+    /**
+     * A Method that dispose the View attributes. not implemented as it wasn't needed.
+     */
     public void dispose(){
 
     }
 
+    /**
+     * Method that converts all the ships into green squares inside the grid. used after finished placing.
+     */
     public void convertsShipsToGrid(){
         battleshipBoard.convertShipsToGridColors();
     }

@@ -52,7 +52,7 @@ public class ShipView extends SelectableShape{
      */
     @Override
     public void draw(Graphics2D g2) {
-        for (SceneShape s: squares){
+        for (GridShape s: squares){
             s.setColor(getColor());
             s.draw(g2);
         }
@@ -72,7 +72,7 @@ public class ShipView extends SelectableShape{
      */
     @Override
     public void translate(int dx, int dy) {
-        for(SceneShape s: squares){
+        for(GridShape s: squares){
             s.translate(dx, dy);
         }
     }
@@ -85,7 +85,7 @@ public class ShipView extends SelectableShape{
     @Override
     public boolean contains(Point2D p) {
 
-        for (SceneShape s: squares){
+        for (GridShape s: squares){
             if(s.contains(p))
                 return true;
         }
@@ -176,5 +176,5 @@ public class ShipView extends SelectableShape{
     private int initX;
     private int initY;
     private int length;
-    private ArrayList<SceneShape> squares;
+    private ArrayList<GridShape> squares;
 }

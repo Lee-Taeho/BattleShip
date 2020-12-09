@@ -2,7 +2,7 @@ package View;
 
 import java.awt.*;
 
-public abstract class SelectableShape implements SceneShape
+public abstract class SelectableShape implements GridShape
 {
     public void setSelected(boolean b)
     {
@@ -24,7 +24,7 @@ public abstract class SelectableShape implements SceneShape
     }
 
     /**
-     * sets the coordinates of the first square of the grid.
+     * sets the coordinates of the SelectableShape object in the grid.
      * @param x x coordinate
      * @param y y coordinate
      */
@@ -33,22 +33,22 @@ public abstract class SelectableShape implements SceneShape
         yCoordinate = y;
     }
     /**
-     * Sets the rotational orientation of the ShipView.
+     * Sets the rotational orientation of the SelectableShape object.
      * @param vertical setting whether the ShipView should be vertical or not.
      */
     public void setVertical(boolean vertical){
         this.vertical = vertical;
     }
     /**
-     * A method for checking if the ship is vertical or not
-     * @return Returns true if the ship is vertical
+     * A method for checking if the SelectableShape object is vertical or not
+     * @return Returns true if the SelectableShape object is vertical
      */
     public boolean isVertical(){
         return vertical;
     }
     /**
-     * A method that sets the color of the square, but it does not invoke draw method inside it
-     * @param color The color of the square
+     * A method that sets the color of the SelectableShape object, but it does not invoke draw method inside it.
+     * @param color The color of the SelectableShape object.
      */
     public void setColor(Color color){
         c = color;
@@ -56,8 +56,8 @@ public abstract class SelectableShape implements SceneShape
 
 
     /**
-     * A method that returns the color of the square
-     * @return The color of the square
+     * A method that returns the color of the SelectableShape object.
+     * @return The color of the SelectableShape object.
      */
     public Color getColor(){
         return c;
