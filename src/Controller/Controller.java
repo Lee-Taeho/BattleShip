@@ -245,42 +245,5 @@ public class Controller {
             return ValveResponse.EXECUTED;
         }
     }
-    
-    //Are we going to combine this with the DoFireMissile valve?
-    private class DoShootMissileResultValve implements Valve {
-        @Override
-        public ValveResponse execute(Message message) {
-            if (message.getClass() != ShootMissileResultMessage.class) {
-                return ValveResponse.MISS;
-            }
-            // otherwise message is of FinishPlaceMessage type
-            ShootMissileResultMessage shootMissileResultMessage = (ShootMissileResultMessage) message;
-            // actions in Model
-            
-            // actions in View
-            
-            
-            return ValveResponse.EXECUTED;
-        }
-    }
-    
-    //updates string in the textfield
-    private class DoUpdateStringMessageValve implements Valve {
-        @Override
-        public ValveResponse execute(Message message) {
-            if (message.getClass() != UpdateStringMessage.class) {
-                return ValveResponse.MISS;
-            }
-            // otherwise message is of FinishPlaceMessage type
-            UpdateStringMessage updateStringMessage = (UpdateStringMessage) message;
-            // actions in Model
-            
-            // actions in View
-            
-            
-            return ValveResponse.EXECUTED;
-        }
-    }
-
 }
 
