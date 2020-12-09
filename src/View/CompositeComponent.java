@@ -11,16 +11,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
-/**
- * A class that contains grid, ships
- * @author Taeho Lee
- */
 public class CompositeComponent extends JComponent{
 
-    /**
-     * Constructor of CompositeComponent
-     * @param q A BlockingQueue to communicate with the controller.
-     */
     public CompositeComponent (BlockingQueue<Message> q){
         queue = q;
 
@@ -54,10 +46,6 @@ public class CompositeComponent extends JComponent{
         addMouseMotionListener(new ShipMouseMotionListener());
     }
 
-    /**
-     * A method for drawing all the components inside the CompositeComponent
-     * @param g graphical context
-     */
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -69,26 +57,16 @@ public class CompositeComponent extends JComponent{
 
     }
 
-    /**
-     * Method for adding ships in CompositeComponent object
-     * @param ship ShipView object being added.
-     */
     public void addShip(ShipView ship){
 
         ships.add(ship);
     }
 
-    /**
-     * returns the ArrayList of ShipView objects inside the CompositeComponent object.
-     * @return ArrayList of shipView objects.
-     */
     public ArrayList<ShipView> getShipList(){
         return ships;
     }
 
-    /**
-     * Reset all the attributes in the CompositeComponent object.
-     */
+
     public void reset(){
         gridCoordinate = new SquareShape[ROWS][COLUMNS];
 
@@ -118,9 +96,6 @@ public class CompositeComponent extends JComponent{
 
     }
 
-    /**
-     * A MouseMotionListener for grids
-     */
     private class PlayerGridMouseMotionListener extends MouseMotionAdapter {
         @Override
         public void mouseMoved(MouseEvent event){
@@ -147,9 +122,6 @@ public class CompositeComponent extends JComponent{
         }
     }
 
-    /**
-     * A MouseListener for clicking the AI grid to fire missile
-     */
     private class AIGridMouseClickListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent event){
@@ -162,7 +134,7 @@ public class CompositeComponent extends JComponent{
 
                         int[] coordinates = AIGrid.indexOf(s);
                         try {
-                            queue.put(new FireMissileMessage(coordinates[1],coordinates[0],FireMissileMessage.TO_AI));
+                            queue.put(new FireMissileMessage(coordinates[1],coordinates[0]));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -183,9 +155,6 @@ public class CompositeComponent extends JComponent{
         }
     }
 
-    /**
-     * MouseListener for clicking the ships and releasing on the grid.
-     */
     private class ShipMouseClickListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent event)
@@ -261,7 +230,15 @@ public class CompositeComponent extends JComponent{
                                          }
                                 }
                             }
-
+//                            for (View.SquareShape[] temp : gridCoordinate){
+//                                for(View.SquareShape square : temp){
+//                                    if(square.contains(p)){
+//                                        s.setPosition(square.getPosition());
+//                                        s.setSelected(false);
+//                                    }
+//
+//                                }
+//                            }
                         }
 
                     }
@@ -273,9 +250,6 @@ public class CompositeComponent extends JComponent{
         }
     }
 
-    /**
-     * MouseListener for dragging ships on the GUI.
-     */
     private class ShipMouseMotionListener extends MouseMotionAdapter{
 
         @Override
@@ -297,23 +271,14 @@ public class CompositeComponent extends JComponent{
         }
     }
 
-    /**
-     * Method that enables clicking the AI grid.
-     */
     public void enableClicking(){
         addMouseListener(clickListener);
     }
 
-    /**
-     * Method that disables clicking the AI grid.
-     */
     public void disableClicking(){
         removeMouseListener(clickListener);
     }
 
-    /**
-     * Method that converts all the ships into green squares inside the grid. used after finished placing.
-     */
     public void convertShipsToGridColors(){
         for(ShipView ship: ships){
 
@@ -336,12 +301,6 @@ public class CompositeComponent extends JComponent{
         repaint();
     }
 
-    /**
-     * Method for shooting player.
-     * @param x X coordinate.
-     * @param y Y coordinate.
-     * @param hit whether the missile is hit or not.
-     */
     public void shootPlayer(int x, int y, boolean hit){
         SquareShape square = playerGrid.getSquare(x,y);
         if(hit){
@@ -352,12 +311,6 @@ public class CompositeComponent extends JComponent{
         repaint();
     }
 
-    /**
-     * Method for shooting AI.
-     * @param x X coordinate.
-     * @param y Y coordinate.
-     * @param hit whether the missile is hit or not.
-     */
     public void shootAI(int x, int y, boolean hit){
 
         SquareShape square = AIGrid.getSquare(x,y);
