@@ -41,8 +41,6 @@ public class PlayerModel {
 	
 	/**
 	* Display method to display player grid in 2d-array for testing
-	* @param 
-	* @return 
 	*/
 	public void display() {
 		int colNum = 0;
@@ -91,7 +89,6 @@ public class PlayerModel {
 	* This set ship method will generate one ship position
 	* @param s ship that is added into PlayerModel
 	* @return true if ship does not overlap with another ship on grid
-	* @return false if ship overlaps with another ship on grid
 	*/
 	public boolean setShip (ShipModel s) {
 		int[] xPos = s.getXPos();
@@ -114,11 +111,10 @@ public class PlayerModel {
 	* check the player ship part position one by one to see
 	* if it overlaps with another ship, and also check if
 	* the xPos[i] and yPos[i] is out of bound
-	* @param xPos[] an array storing all x coordinates of the ship
-	* @param yPos[] an array storing all y coordinates of the ship
+	* @param xPos an array storing all x coordinates of the ship
+	* @param yPos an array storing all y coordinates of the ship
 	* @param length length of the ship
 	* @return true - if overlaps or out of bound return true
-	* @return false - if no overlap or no out of bound return false
 	*/
 	private boolean setShipHelper (int xPos[], int yPos[], int length) {
 		//first check the ship part position one by one to see
@@ -134,9 +130,7 @@ public class PlayerModel {
 	/**
 	* check if player is game over. numOfHits is the number of player ship
 	* parts that has been hit.
-	* @param 
 	* @return true - numOfHits is equal to 17
-	* @return false - numOfHits is not equal(below) to 17
 	*/
 	public boolean isGameOver() {
 		if(numOfHits == 17) {
@@ -147,8 +141,6 @@ public class PlayerModel {
 	
 	/**
 	* AI fire shot to player grid.
-	* @param
-	* @return true - if AI hit a player ship part or if AI misses
 	* @return false - if AI fires at a player ship part that's been hit or a hit spot (duplicated firing)
 	*/
 	public boolean attackedByAI() {
@@ -199,8 +191,6 @@ public class PlayerModel {
 	
 	/**
 	* Resets player grid and all variables
-	* @param 
-	* @return
 	*/
 	public void reset() {
 		numOfShots = 0;
@@ -223,7 +213,6 @@ public class PlayerModel {
 	 * @param y y position of the ship 
 	 * @param length length of the ship
 	 * @param vertical ship placement is vertical or horizontal
-	 * @return
 	 */
 	public void removeShip(int x, int y, int length, boolean vertical) {
 		int[] xPos = new int[length];
