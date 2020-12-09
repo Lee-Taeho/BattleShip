@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 
 /**
  *  A smallest unit of square shape object that consist the Grid, Ship shapes
+ * @author Taeho Lee
  */
 public class SquareShape extends SelectableShape{
 
@@ -18,6 +19,9 @@ public class SquareShape extends SelectableShape{
      */
     public SquareShape (int x, int y ){
         setPosition(x, y);
+        setColor(Color.WHITE);
+        setIndex(-1,-1);
+        setVertical(false);
 
     }
 
@@ -30,7 +34,7 @@ public class SquareShape extends SelectableShape{
         Rectangle2D.Double square = new Rectangle2D.Double(x ,y ,WIDTH , WIDTH);
         g2.setColor(Color.BLACK);
         g2.draw(square);
-        g2.setColor(c);
+        g2.setColor(getColor());
         g2.fill(square);
     }
 
@@ -65,36 +69,31 @@ public class SquareShape extends SelectableShape{
         y += dy;
     }
 
-    /**
-     * A method that sets the color of the square, but it does not invoke draw method inside it
-     * @param color The color of the square
-     */
-    public void setColor(Color color){
-        c = color;
-    }
-
-    /**
-     * A method that returns the color of the square
-     * @return The color of the square
-     */
-    public Color getColor(){
-        return c;
-    }
 
     /**
      * a method that sets the position of the square
      * @param x The x position on the GUI
      * @param y The y position on the GUI
      */
+    @Override
     public void setPosition(int x ,int y){
         this.x = x;
         this.y = y;
+    }
+    /**
+     * Sets the position of the SquareShape object into point p
+     * @param p Point object p
+     */
+    @Override
+    public void setPosition(Point p) {
+        setPosition((int) p.getX(),(int) p.getY());
     }
 
     /**
      * A method that returns the position of the square's high-left corner with a Point datatype
      * @return A x,y position of the square in GUI into a Point datatype
      */
+    @Override
     public Point getPosition(){
         return new Point(x,y);
     }
@@ -110,6 +109,5 @@ public class SquareShape extends SelectableShape{
     private int x;
     private int y;
     private static int WIDTH = 30;
-    private Color c = Color.WHITE;
 
 }

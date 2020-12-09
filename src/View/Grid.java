@@ -1,11 +1,19 @@
 package View;
 
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Iterator;
 
+/**
+ * A class that represents a grid for the player and the AI.
+ * @author Taeho Lee
+ */
 public class Grid implements Iterable {
 
+    /**
+     * Default constructor that makes a 10x10 grid.
+     */
     public Grid(){
 
         this(10,10, 0, 0);
@@ -13,6 +21,13 @@ public class Grid implements Iterable {
 
     }
 
+    /**
+     * A Contructor for making a grid
+     * @param rows number of rows in a grid.
+     * @param columns number of columns in a grid.
+     * @param x a X position of the top left corner of a grid.
+     * @param y a Y position of the top right corner of a grid.
+     */
     public Grid(int rows, int columns, int x, int y){
 
         ROWS = rows;
@@ -24,12 +39,19 @@ public class Grid implements Iterable {
         for(int i = 0; i < ROWS ; i ++){
             for(int j = 0; j < COLUMNS; j ++){
                 square = new SquareShape(j * squareWidth +initX,i * squareWidth + initY + squareWidth);
+                square.setIndex(j,i);
                 squares[i][j] = square;
             }
         }
 
     }
 
+    /**
+     * A Method that returns the SquareShape object on the corresponding coordinate.
+     * @param x X coordinate of the grid when the origin is set to the left top corner.
+     * @param y Y coordinate of the grid when the origin is set to the left top corner.
+     * @return SquareShape object in the corresponding coordinate.
+     */
     public SquareShape getSquare(int x, int y){
 
         return squares[y][x];
@@ -54,7 +76,10 @@ public class Grid implements Iterable {
 
     }
 
-
+    /**
+     * A method that draws the Grid.
+     * @param g2 Graphics2D object
+     */
     public void draw(Graphics2D g2){
 
         Font font = new Font("Serif", Font.PLAIN , 20);
@@ -84,39 +109,48 @@ public class Grid implements Iterable {
 
     }
 
+    /**
+     * A method for checking whether the grid contains the point p.
+     * @param p point P.
+     * @return returns true if the grid contains point p.
+     */
     public boolean contains(Point2D p){
         return initX <= p.getX() && p.getX() <= initX + COLUMNS * squareWidth
                 && initY + squareWidth <= p.getY() && p.getY() <= initY + (ROWS + 1)* squareWidth;
     }
 
 
-@Override
-public Iterator iterator() {
-    class GridIterator implements Iterator{
+    /**
+     * A method that returns an iterator that iterates through all SquareShape Object in the grid.
+     * @return Iterator of the grid that returns all the SquareShape objects.
+     */
+    @Override
+    public Iterator iterator() {
+        class GridIterator implements Iterator{
 
-        @Override
-        public boolean hasNext() {
-            return (r + 1) * (c + 1) <= ROWS * COLUMNS;
-        }
-
-        @Override
-        public Object next() {
-            if (ROWS > r){
-                if (COLUMNS <= c) {
-                    r += 1;
-                    c = 0;
-                }
-//                System.out.println("[" + r + "][" + c + "]");
-                return squares[r][c++];
+            @Override
+            public boolean hasNext() {
+                return (r + 1) * (c + 1) <= ROWS * COLUMNS;
             }
-            throw new IndexOutOfBoundsException();
-        }
-        private int r =0;
-        private int c = 0;
-    }
 
-    return new GridIterator();
-}
+            @Override
+            public Object next() {
+                if (ROWS > r){
+                    if (COLUMNS <= c) {
+                        r += 1;
+                        c = 0;
+                    }
+                    //                System.out.println("[" + r + "][" + c + "]");
+                    return squares[r][c++];
+                }
+                throw new IndexOutOfBoundsException();
+            }
+            private int r =0;
+            private int c = 0;
+        }
+
+        return new GridIterator();
+    }
 
     private SquareShape[][] squares;
     private int squareWidth = SquareShape.getWidth();
