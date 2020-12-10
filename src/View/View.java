@@ -6,7 +6,6 @@ import Message.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Class that directly interact with the Controller class
