@@ -10,7 +10,7 @@ public class RemoveShipMessage implements Message {
 
 	/**
 	 * constructor for remove ship message
-	 * @param ship
+	 * @param ship ShipView object
 	 */
 	public RemoveShipMessage(ShipView ship) {
         this.ship = ship;
@@ -46,7 +46,6 @@ public class RemoveShipMessage implements Message {
     /**
      * check if the shipView was placed vertically
      * @return true if it was placed vertically
-     * @return false if it was not
      */
     public boolean isVertical(){
 

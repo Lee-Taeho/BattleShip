@@ -38,7 +38,7 @@ public class PlaceNewShipMessage implements Message{ // might have to add new va
 	
 	/**
 	 * sets the x position of the shipView that player placed on grid
-	 * @param x
+	 * @param x x position of the ShipView
 	 */
 	public void setX(int x) {
 
@@ -56,7 +56,7 @@ public class PlaceNewShipMessage implements Message{ // might have to add new va
 	
 	/**
 	 * sets the y position of the shipView that player placed on grid
-	 * @param y
+	 * @param y y Position of the ShipView
 	 */
 	public void setY(int y) {
 

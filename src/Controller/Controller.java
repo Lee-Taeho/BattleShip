@@ -9,6 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Controller of the Battleship Game.
+ */
 public class Controller {
 	private final int NUMBER_OF_SHIPS = 5;
     private BlockingQueue<Message> queue;

@@ -28,7 +28,7 @@ public class FireMissileMessage implements Message{
 	
 	/**
 	 * gets the x position of the shot
-	 * @return x
+	 * @return x x coordinate of the firing position
 	 */
 	public int getX() {
 		return x;
@@ -36,7 +36,7 @@ public class FireMissileMessage implements Message{
 	
 	/**
 	 * sets the x position of the shot
-	 * @param x
+	 * @param x x coordinate of the firing position
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -44,7 +44,7 @@ public class FireMissileMessage implements Message{
 	
 	/**
 	 * gets the y position of the shot
-	 * @return y
+	 * @return y y coordinate of the firing position
 	 */
 	public int getY() {
 		return y;
@@ -52,7 +52,7 @@ public class FireMissileMessage implements Message{
 	
 	/**
 	 * sets the y position of the shot
-	 * @param y
+	 * @param y y coordinate of the firing position
 	 */
 	public void setY(int y) {
 		this.y = y;

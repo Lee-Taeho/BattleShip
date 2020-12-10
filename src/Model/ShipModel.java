@@ -23,10 +23,10 @@ public class ShipModel {
 	
 	/**
 	 * Constructor for class ShipModel, use for PlayerModel.setShip()
-	 * @param x
-	 * @param y
-	 * @param length
-	 * @param vertical
+	 * @param x x coordinate of the ShipModel
+	 * @param y y coordinate of the ShipModel
+	 * @param length length of the ShipModel
+	 * @param vertical whether the ShipModel is vertical or not
 	 */
 	public ShipModel(int x, int y, int length, boolean vertical) {
 		this.length = length;
@@ -106,7 +106,7 @@ public class ShipModel {
 	
 	/**
 	 * set all x position of the ship
-	 * @param xPos
+	 * @param xPos x coordinate of the ship
 	 */
 	public void setXPos(int[] xPos) {
 		this.xPos = xPos;
@@ -122,7 +122,7 @@ public class ShipModel {
 	
 	/**
 	 * set all y position of the ship
-	 * @param yPos
+	 * @param yPos y coordinate of the ship
 	 */
 	public void setYPos(int[] yPos) {
 		this.yPos = yPos;
@@ -131,7 +131,6 @@ public class ShipModel {
 	/**
 	 * check if the ship placement is vertical or horizontal
 	 * @return true the ship placement is vertical
-	 * @return false the ship placement is horizontal
 	 */
 	public boolean isVertical() {
 		return vertical;
@@ -139,7 +138,7 @@ public class ShipModel {
 	
 	/**
 	 * set the ship placement to be vertical or horizontal
-	 * @param vertical 
+	 * @param vertical whether the ship is vertical or not
 	 */
 	public void setVertical(boolean vertical) {
 		this.vertical = vertical;
