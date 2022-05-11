@@ -2,8 +2,7 @@
 # Contributor: Tae Ho Lee, Jiajun Dai,Nikola Klier, Kevin Lopez
 Classic battleship game. [rules for Battleship Game](https://en.wikipedia.org/wiki/Battleship_(game))
 > Instruction:
-To play battleship,
-You just need to click on the executable "Battleship.jar" for Windows, Mac or Linux.
+For Windows, Mac or Linux users to play Battleship, just go to [this link](https://github.com/Lee-Taeho/BattleShip/blob/fixed2/Battleship.jar) and click download, then run the executable "Battleship.jar".
 > Features implemented in this project:
 * Player Manual Ship Placing
 * Player and AI Random Ship Placing
