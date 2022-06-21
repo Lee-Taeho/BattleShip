@@ -1,8 +1,13 @@
 # CS151 Group Project "BattleShip Game"
 # Contributor: Tae Ho Lee, Jiajun Dai,Nikola Klier, Kevin Lopez
-Classic battleship game. [rules for Battleship Game](https://en.wikipedia.org/wiki/Battleship_(game))
+![alt text](img/gameplay_screenshot.png)
+Classic battleship game. [rules for Battleship Game](https://en.wikipedia.org/wiki/Battleship_(game)) with Player VS Artificial intelligence
 > Instruction:
 * For Windows, Mac or Linux users to play Battleship, just go to [this link](https://github.com/Lee-Taeho/BattleShip/blob/fixed2/Battleship.jar) and click download, then run the executable "Battleship.jar".
+
+>Design Environments
+* IntelliJ IDEA
+* Java Version 11
 
 > Features implemented in this project:
 * Player Manual Ship Placing
@@ -13,6 +18,7 @@ Classic battleship game. [rules for Battleship Game](https://en.wikipedia.org/wi
 > Designed the project using:
 * Used Object Oriented approach, added entities such as Player, Board, Fleet of Ships, Score.
 * Implemented Model-View-ViewModel design pattern to separate parts between the View, the Model and the Logic.
+* Applied MVC patterns and multiple Object-Oriented design methods such as Pipeline, Adapter. 
 
 > Data Structures:
 * The Board is a two-dimensional array which elements can be accessed by their x and y coordinates.
