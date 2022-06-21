@@ -1,6 +1,7 @@
 # CS151 Group Project "BattleShip Game"
-# Contributor: Tae Ho Lee, Jiajun Dai,Nikola Klier, Kevin Lopez
 ![alt text](img/gameplay_screenshot.png)
+
+## About
 Classic battleship game. [rules for Battleship Game](https://en.wikipedia.org/wiki/Battleship_(game)) with Player VS Artificial intelligence
 ## Instruction
 * For Windows, Mac or Linux users to play Battleship, just go to [this link](https://github.com/Lee-Taeho/BattleShip/blob/fixed2/Battleship.jar) and click download, then run the executable "Battleship.jar".
@@ -29,3 +30,10 @@ Classic battleship game. [rules for Battleship Game](https://en.wikipedia.org/wi
 * Need a smarter AI firing strategy. Current development is just a random fire.
 * Add a one time used only skill for both player, which called airforce recon to reveal random four unseen grids.
 * Debug the problem where for Windows user the grid line is not showing.
+
+
+## Contributor
+* [Taeho Lee](https://github.com/Lee-Taeho)
+* [Jiajun Dai](https://github.com/DJJ547)
+* [Nikola Klier](https://github.com/nklier38)
+* [Kevin Lopez](https://github.com/KevinLopezSJSU)
